@@ -1,0 +1,221 @@
+:root {
+  --fondo-1: #f6efe6;
+  --fondo-2: #e9ddd0;
+  --tinta: #3b332c;
+  --tinta-suave: #6b6055;
+  --acento: #a97155;
+  --acento-suave: #d9b99b;
+  --tarjeta: #fffdf9;
+  --alerta: #8a4a3a;
+  --radio: 18px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Georgia", "Iowan Old Style", serif;
+  background: linear-gradient(160deg, var(--fondo-1), var(--fondo-2));
+  color: var(--tinta);
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 560px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 4px 10px;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+.marca {
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--acento);
+}
+
+.capitulo-actual {
+  font-size: 0.75rem;
+  color: var(--tinta-suave);
+}
+
+.pantalla {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px 0 40px;
+  animation: aparecer 0.5s ease;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tarjeta {
+  background: var(--tarjeta);
+  border-radius: var(--radio);
+  padding: 28px 24px;
+  box-shadow: 0 10px 30px rgba(80, 60, 40, 0.08);
+}
+
+.texto p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 0 0 14px;
+}
+
+.texto p:last-child { margin-bottom: 0; }
+
+.pregunta {
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.botones, .opciones-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+button {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.98rem;
+  border-radius: 999px;
+  border: none;
+  padding: 14px 20px;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+  text-align: left;
+}
+
+button:active { transform: scale(0.98); }
+
+.btn-primario {
+  background: var(--acento);
+  color: #fff;
+}
+
+.btn-primario:hover { background: #935e42; }
+
+.btn-secundario {
+  background: transparent;
+  color: var(--tinta-suave);
+  text-decoration: underline;
+  padding: 8px 4px;
+}
+
+.btn-opcion {
+  background: #fbf5ec;
+  color: var(--tinta);
+  border: 1px solid var(--acento-suave);
+}
+
+.btn-opcion:hover { background: #f4e8d9; }
+
+textarea, input[type="text"] {
+  width: 100%;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid var(--acento-suave);
+  background: #fffefb;
+  color: var(--tinta);
+  resize: vertical;
+  min-height: 70px;
+}
+
+.campo-grupo { margin-bottom: 18px; }
+
+.campo-grupo label {
+  display: block;
+  font-size: 0.92rem;
+  color: var(--tinta-suave);
+  margin-bottom: 6px;
+}
+
+.respiracion-visual {
+  display: flex;
+  justify-content: center;
+  margin: 28px 0;
+}
+
+.circulo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, var(--acento-suave), var(--acento));
+  transition: transform 4s ease-in-out;
+}
+
+.circulo.inhalar { transform: scale(1.35); }
+.circulo.exhalar { transform: scale(0.85); }
+
+.estado-respiracion {
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--tinta-suave);
+  min-height: 1.4em;
+}
+
+.aviso {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--tinta-suave);
+  text-align: center;
+  padding: 10px 6px 24px;
+  opacity: 0.85;
+}
+
+.cargando {
+  font-size: 0.9rem;
+  color: var(--tinta-suave);
+  font-style: italic;
+}
+
+.resumen-item {
+  margin-bottom: 14px;
+}
+
+.resumen-item .etiqueta {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--acento);
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+.resumen-item .valor {
+  font-size: 1.05rem;
+  margin-top: 2px;
+}
+
+.pantalla-seguridad .tarjeta {
+  border-left: 4px solid var(--alerta);
+}
+
+.pill-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.pill-selector button {
+  padding: 8px 14px;
+  font-size: 0.88rem;
+}

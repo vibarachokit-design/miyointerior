@@ -1,0 +1,464 @@
+{
+  "id": "capitulo-1",
+  "titulo": "Entregar la carga",
+  "start": "bienvenida",
+  "duracionEstimadaMin": [5, 8],
+  "avisoSeguridad": "Esta experiencia ofrece acompañamiento reflexivo y educativo. No reemplaza la atención de profesionales cuando una situación requiere apoyo especializado.",
+  "systemPromptBase": "Eres Mi Yo Interior, el acompañante digital del libro 'Mi Yo Interior'. Ayudas al lector a reflexionar, reconocer emociones, separar lo controlable de lo no controlable y elegir un próximo paso. No afirmas ser literalmente la conciencia, el alma, la intuición ni la voz interior del lector. No dices que conoces su destino o su verdad. Eres una herramienta digital para facilitar la reflexión.\n\nTono: cálido y sereno, respetuoso, espiritual sin imponer una religión, claro y sencillo, esperanzador sin prometer resultados, cercano pero sin generar dependencia emocional.\n\nReglas: formula una idea a la vez; no entregues diagnósticos; no interpretes traumas ni recuerdos; no tomes decisiones por el lector; no asegures que el universo resolverá sus problemas; no presentes afirmaciones como sustituto de acciones concretas; no juzgues ni culpabilices; no obligues a perdonar o reconciliarse; no solicites nombres, direcciones, documentos, contraseñas, información bancaria ni datos innecesarios; recuerda que el lector puede detener la experiencia cuando quiera; cada respuesta debe tener entre dos y cinco frases; termina siempre con una pregunta clara o remite a los botones de elección; en situaciones urgentes prioriza la seguridad y detén el ejercicio habitual.\n\nFórmula de acompañamiento: Reconocer → Validar → Diferenciar → Elegir → Avanzar.",
+  "pantallas": {
+
+    "bienvenida": {
+      "tipo": "mensaje",
+      "texto": [
+        "Bienvenido a Mi Yo Interior",
+        "Has llegado desde el capítulo \"Entregar la carga\".",
+        "Este es un espacio de pausa y reflexión. Aquí podrás observar lo que estás sintiendo, soltar por un momento aquello que no puedes controlar y encontrar un próximo paso posible.",
+        "No necesitas tener todas las respuestas.",
+        "Solo necesitas comenzar con honestidad."
+      ],
+      "botones": [
+        { "texto": "Comenzar la experiencia", "siguiente": "presentacion" },
+        { "texto": "Prefiero volver más tarde", "siguiente": "salida_temprana" }
+      ]
+    },
+
+    "salida_temprana": {
+      "tipo": "mensaje",
+      "texto": [
+        "Está bien. Puedes detenerte cuando quieras.",
+        "La pausa también es una forma de cuidarte. El ejercicio estará disponible cuando decidas regresar."
+      ],
+      "botones": [{ "texto": "Volver al libro", "siguiente": "fin" }]
+    },
+
+    "presentacion": {
+      "tipo": "mensaje",
+      "texto": [
+        "Hola. Soy Mi Yo Interior, el acompañante digital de este libro.",
+        "No estoy aquí para decirte qué debes sentir ni para decidir por ti. Estoy aquí para ayudarte a hacer una pausa, ordenar lo que estás viviendo y escuchar con mayor claridad tus propias respuestas.",
+        "Lo que escribas será utilizado solo para guiar esta experiencia, en este dispositivo. Comparte solamente aquello con lo que te sientas cómodo.",
+        "Antes de comenzar, busca una posición cómoda.",
+        "Cuando estés preparado, presiona continuar."
+      ],
+      "botones": [{ "texto": "Estoy preparado", "siguiente": "identificar_carga" }]
+    },
+
+    "identificar_carga": {
+      "tipo": "opciones",
+      "guardarEn": "tipoCarga",
+      "texto": [
+        "En el capítulo identificaste una carga: una situación, preocupación o pensamiento que ha estado ocupando demasiado espacio en tu mente.",
+        "¿Qué tipo de carga estás sosteniendo hoy?"
+      ],
+      "opciones": [
+        { "valor": "economica", "texto": "Preocupación económica o financiera", "siguiente": "reconocer_emocion" },
+        { "valor": "resentimiento", "texto": "Resentimiento o conflicto con alguien", "siguiente": "reconocer_emocion" },
+        { "valor": "miedo_futuro", "texto": "Miedo al futuro o a un cambio", "siguiente": "reconocer_emocion" },
+        { "valor": "decision", "texto": "Una decisión que no logro tomar", "siguiente": "reconocer_emocion" },
+        { "valor": "fuera_control", "texto": "Algo que está fuera de mi control", "siguiente": "reconocer_emocion" },
+        { "valor": "otra", "texto": "Otra situación", "siguiente": "otra_situacion_texto" }
+      ]
+    },
+
+    "otra_situacion_texto": {
+      "tipo": "texto",
+      "guardarEn": "tipoCargaDescripcion",
+      "texto": ["Puedes describirla en una frase. No necesitas entregar detalles personales."],
+      "placeholder": "La situación que me preocupa es…",
+      "siguiente": "reconocer_emocion",
+      "usaIA": true,
+      "contextoIA": "El lector está describiendo, con sus propias palabras, la carga que quiere entregar en el Capítulo 1 (aún no ha nombrado la emoción asociada). Reconoce brevemente lo que compartió, sin interpretarlo ni analizarlo, y ayúdalo a sentir que puede continuar. Etapa del método: Reconocer."
+    },
+
+    "reconocer_emocion": {
+      "tipo": "opciones",
+      "guardarEn": "emocion",
+      "texto": [
+        "Gracias por reconocerlo.",
+        "Ahora observa qué ocurre dentro de ti cuando piensas en esta situación.",
+        "¿Cuál de estas emociones se acerca más a lo que estás sintiendo?"
+      ],
+      "opciones": [
+        { "valor": "miedo", "texto": "Miedo", "siguiente": "validar_emocion" },
+        { "valor": "enojo", "texto": "Enojo", "siguiente": "validar_emocion" },
+        { "valor": "culpa", "texto": "Culpa", "siguiente": "validar_emocion" },
+        { "valor": "tristeza", "texto": "Tristeza", "siguiente": "validar_emocion" },
+        { "valor": "inseguridad", "texto": "Inseguridad", "siguiente": "validar_emocion" },
+        { "valor": "cansancio", "texto": "Cansancio", "siguiente": "validar_emocion" },
+        { "valor": "confusion", "texto": "Confusión", "siguiente": "validar_emocion" },
+        { "valor": "frustracion", "texto": "Frustración", "siguiente": "validar_emocion" },
+        { "valor": "no_se", "texto": "No sé cómo nombrarlo", "siguiente": "validar_emocion" },
+        { "valor": "otra", "texto": "Otra emoción", "siguiente": "otra_emocion_texto" }
+      ]
+    },
+
+    "otra_emocion_texto": {
+      "tipo": "texto",
+      "guardarEn": "emocionDescripcion",
+      "texto": ["¿Cómo la llamarías tú?"],
+      "placeholder": "Lo que siento es…",
+      "siguiente": "pausa_respiracion",
+      "usaIA": true,
+      "contextoIA": "El lector no encontró su emoción entre las opciones y la describió con sus propias palabras. Valida esa emoción sin corregirla ni etiquetarla clínicamente, recordando que puede darle información sin dirigir todas sus decisiones. Etapa del método: Reconocer/Entregar."
+    },
+
+    "validar_emocion": {
+      "tipo": "mensaje_dinamico",
+      "plantilla": "Tiene sentido que esta situación produzca {emocion}. No necesitas eliminar esa emoción ahora. Por un momento, solo vamos a reconocer que está presente. Una emoción puede entregarnos información, pero no tiene que tomar todas nuestras decisiones.",
+      "botones": [{ "texto": "Hacer una pausa", "siguiente": "pausa_respiracion" }]
+    },
+
+    "pausa_respiracion": {
+      "tipo": "respiracion",
+      "texto": [
+        "Si te resulta cómodo, apoya ambos pies en el suelo y relaja suavemente los hombros.",
+        "No necesitas cerrar los ojos. Puedes mantener la mirada en un punto tranquilo."
+      ],
+      "ciclos": 2,
+      "inhalarSeg": 4,
+      "exhalarSeg": 6,
+      "textoFinal": "En este momento no necesitas resolverlo todo. Solo estás creando un poco de espacio para observar la situación con mayor claridad.",
+      "siguiente": "enrutar_carga"
+    },
+
+    "enrutar_carga": {
+      "tipo": "enrutador",
+      "clave": "tipoCarga",
+      "destinos": {
+        "economica": "ruta_economica",
+        "resentimiento": "ruta_resentimiento",
+        "miedo_futuro": "ruta_miedo",
+        "decision": "ruta_decision",
+        "fuera_control": "ruta_control",
+        "otra": "ruta_otra"
+      }
+    },
+
+    "ruta_economica": {
+      "tipo": "opciones",
+      "guardarEn": "detalleEconomico",
+      "texto": [
+        "Las preocupaciones económicas pueden hacer que la mente intente resolver muchas situaciones al mismo tiempo. Todo parece urgente y puede resultar difícil distinguir cuál es el primer paso.",
+        "No vamos a negar el problema ni a imaginar que desaparecerá por sí solo. Vamos a separar la preocupación de la acción.",
+        "¿Qué parte de esta situación te preocupa más?"
+      ],
+      "opciones": [
+        { "valor": "alcanzar", "texto": "No saber si el dinero alcanzará", "siguiente": "frases_controlable" },
+        { "valor": "deuda", "texto": "Tener una deuda o un pago pendiente", "siguiente": "frases_controlable" },
+        { "valor": "ingresos", "texto": "No saber cómo generar más ingresos", "siguiente": "frases_controlable" },
+        { "valor": "gasto", "texto": "Haber tenido un gasto inesperado", "siguiente": "frases_controlable" },
+        { "valor": "desorden", "texto": "Sentir desorden o falta de control", "siguiente": "frases_controlable" },
+        { "valor": "otra", "texto": "Otra preocupación", "siguiente": "frases_controlable" }
+      ]
+    },
+
+    "frases_controlable": {
+      "tipo": "texto_doble",
+      "texto": ["Gracias. Ahora completa estas dos frases:"],
+      "campos": [
+        { "clave": "noControlo", "etiqueta": "Lo que hoy no puedo controlar completamente es…" },
+        { "clave": "siPuedo", "etiqueta": "Lo que sí puedo revisar, preguntar, ordenar o realizar es…" }
+      ],
+      "textoPosterior": "Observa la diferencia. No necesitas resolver hoy toda tu situación. Puedes comenzar por una acción concreta.",
+      "siguiente": "accion_economica"
+    },
+
+    "accion_economica": {
+      "tipo": "opciones",
+      "guardarEn": "accion24h",
+      "texto": ["¿Qué acción pequeña puedes realizar durante las próximas 24 horas?"],
+      "opciones": [
+        { "valor": "revisar", "texto": "Revisar mis ingresos y compromisos", "siguiente": "momento_entrega" },
+        { "valor": "ordenar", "texto": "Ordenar mis fechas de pago", "siguiente": "momento_entrega" },
+        { "valor": "informacion", "texto": "Solicitar información", "siguiente": "momento_entrega" },
+        { "valor": "conversar", "texto": "Conversar con una persona relacionada", "siguiente": "momento_entrega" },
+        { "valor": "orientacion", "texto": "Buscar orientación profesional", "siguiente": "momento_entrega" },
+        { "valor": "propia", "texto": "Escribir mi propia acción", "siguiente": "accion_propia_texto" }
+      ],
+      "afirmacionSugerida": "Suelto la urgencia y observo mi situación con claridad. Me ocupo de un paso a la vez."
+    },
+
+    "ruta_resentimiento": {
+      "tipo": "opciones",
+      "guardarEn": "necesidadResentimiento",
+      "texto": [
+        "Cuando una conversación o una experiencia dolorosa se repite en nuestra mente, una parte de nuestra energía permanece atrapada en lo ocurrido.",
+        "Soltar no significa justificar, olvidar ni permitir nuevamente aquello que te hizo daño. Tampoco significa que debas reconciliarte con alguien.",
+        "Significa comenzar a recuperar el espacio interior que esa situación sigue ocupando.",
+        "¿Qué necesitas principalmente frente a esta situación?"
+      ],
+      "opciones": [
+        { "valor": "expresar", "texto": "Expresar algo que he guardado", "siguiente": "ejercicio_cuerda" },
+        { "valor": "limite", "texto": "Establecer un límite", "siguiente": "ejercicio_cuerda" },
+        { "valor": "repetir", "texto": "Dejar de repetir la conversación en mi mente", "siguiente": "ejercicio_cuerda" },
+        { "valor": "comprender", "texto": "Comprender mejor lo que siento", "siguiente": "ejercicio_cuerda" },
+        { "valor": "distancia", "texto": "Tomar distancia", "siguiente": "ejercicio_cuerda" },
+        { "valor": "no_se", "texto": "Todavía no lo sé", "siguiente": "ejercicio_cuerda" }
+      ]
+    },
+
+    "ejercicio_cuerda": {
+      "tipo": "mensaje",
+      "texto": [
+        "Imagina que entre tú y esa persona existe una cuerda que representa todo lo que aún estás sosteniendo: palabras, preguntas, enojo o expectativas.",
+        "No necesitas acercarte a esa persona ni hablar con ella ahora. Solo imagina que aflojas tu extremo de la cuerda.",
+        "Repite interiormente: \"No justifico lo que me hizo daño. Hoy dejo de sostenerlo de la misma manera. Recupero mi energía y protejo mi paz.\"",
+        "Respira lentamente."
+      ],
+      "botones": [{ "texto": "Continuar", "siguiente": "accion_resentimiento" }]
+    },
+
+    "accion_resentimiento": {
+      "tipo": "opciones",
+      "guardarEn": "accion24h",
+      "texto": ["¿Qué acción respetuosa contigo podría ayudarte?"],
+      "opciones": [
+        { "valor": "escribir", "texto": "Escribir lo que siento sin enviarlo", "siguiente": "momento_entrega" },
+        { "valor": "limite", "texto": "Definir un límite", "siguiente": "momento_entrega" },
+        { "valor": "tiempo", "texto": "Darme tiempo antes de responder", "siguiente": "momento_entrega" },
+        { "valor": "conversar", "texto": "Conversar cuando me sienta preparado", "siguiente": "momento_entrega" },
+        { "valor": "apoyo", "texto": "Buscar apoyo en una persona de confianza", "siguiente": "momento_entrega" },
+        { "valor": "ninguna", "texto": "No realizar ninguna acción por ahora", "siguiente": "momento_entrega" }
+      ],
+      "afirmacionSugerida": "Suelto lo que no necesito seguir cargando. Mi paz también merece un lugar."
+    },
+
+    "ruta_miedo": {
+      "tipo": "opciones",
+      "guardarEn": "detalleMiedo",
+      "texto": [
+        "El futuro contiene preguntas que todavía no tienen respuesta.",
+        "Cuando sentimos miedo, la mente puede convertir una posibilidad en una certeza y comenzar a reaccionar como si aquello que teme ya estuviera ocurriendo.",
+        "Volvamos por un momento al presente.",
+        "¿Qué aspecto del cambio te produce mayor inquietud?"
+      ],
+      "opciones": [
+        { "valor": "no_saber", "texto": "No saber qué ocurrirá", "siguiente": "ejercicio_presente" },
+        { "valor": "equivocarme", "texto": "Equivocarme", "siguiente": "ejercicio_presente" },
+        { "valor": "perder", "texto": "Perder algo importante", "siguiente": "ejercicio_presente" },
+        { "valor": "no_preparado", "texto": "No sentirme preparado", "siguiente": "ejercicio_presente" },
+        { "valor": "decepcionar", "texto": "Decepcionar a alguien", "siguiente": "ejercicio_presente" },
+        { "valor": "comenzar", "texto": "Tener que comenzar nuevamente", "siguiente": "ejercicio_presente" },
+        { "valor": "otro", "texto": "Otro temor", "siguiente": "ejercicio_presente" }
+      ]
+    },
+
+    "ejercicio_presente": {
+      "tipo": "mensaje",
+      "texto": [
+        "Mira a tu alrededor y reconoce silenciosamente: tres cosas que puedes ver, dos sonidos que puedes escuchar, y una parte de tu cuerpo que se encuentra apoyada.",
+        "Ahora repite: \"En este momento estoy aquí. El futuro todavía no ha ocurrido. Puedo prepararme sin vivir anticipadamente todos los resultados posibles.\""
+      ],
+      "botones": [{ "texto": "Continuar", "siguiente": "accion_miedo" }]
+    },
+
+    "accion_miedo": {
+      "tipo": "opciones",
+      "guardarEn": "accion24h",
+      "texto": ["¿Qué podría ayudarte a sentir un poco más de preparación?"],
+      "opciones": [
+        { "valor": "informacion", "texto": "Buscar información confiable", "siguiente": "momento_entrega" },
+        { "valor": "paso", "texto": "Organizar un primer paso", "siguiente": "momento_entrega" },
+        { "valor": "ayuda", "texto": "Pedir ayuda o consejo", "siguiente": "momento_entrega" },
+        { "valor": "plan", "texto": "Preparar un plan alternativo", "siguiente": "momento_entrega" },
+        { "valor": "tiempo", "texto": "Darme tiempo para adaptarme", "siguiente": "momento_entrega" },
+        { "valor": "propia", "texto": "Escribir mi propia acción", "siguiente": "accion_propia_texto" }
+      ],
+      "afirmacionSugerida": "No necesito controlar todo el futuro. Puedo encontrar el camino mientras avanzo."
+    },
+
+    "ruta_decision": {
+      "tipo": "texto_doble",
+      "texto": [
+        "A veces no postergamos una decisión porque seamos incapaces de elegir, sino porque esperamos sentir una seguridad absoluta.",
+        "Sin embargo, muchas decisiones no vienen acompañadas de certeza completa. Vamos a observar tus opciones sin obligarte a resolverlas inmediatamente."
+      ],
+      "campos": [
+        { "clave": "decisionPendiente", "etiqueta": "¿Cuál es la decisión que necesitas tomar?" },
+        { "clave": "opcionCalma", "etiqueta": "¿Qué opción te produce más calma cuando piensas en ella, aunque también te dé miedo?" }
+      ],
+      "siguiente": "decision_proteger"
+    },
+
+    "decision_proteger": {
+      "tipo": "opciones",
+      "guardarEn": "queProtege",
+      "texto": ["¿Qué estás intentando proteger al no decidir?"],
+      "opciones": [
+        { "valor": "seguridad", "texto": "Mi seguridad", "siguiente": "decision_reflexion" },
+        { "valor": "opinion", "texto": "La opinión de otras personas", "siguiente": "decision_reflexion" },
+        { "valor": "relacion", "texto": "Una relación", "siguiente": "decision_reflexion" },
+        { "valor": "estabilidad", "texto": "Mi estabilidad económica", "siguiente": "decision_reflexion" },
+        { "valor": "imagen", "texto": "Mi imagen o reputación", "siguiente": "decision_reflexion" },
+        { "valor": "equivocarme", "texto": "La posibilidad de equivocarme", "siguiente": "decision_reflexion" },
+        { "valor": "otra", "texto": "Otra cosa", "siguiente": "decision_reflexion" }
+      ]
+    },
+
+    "decision_reflexion": {
+      "tipo": "texto",
+      "guardarEn": "sinComplacer",
+      "texto": [
+        "No decidir también puede mantenerte temporalmente a salvo de la incomodidad. Reconocerlo no significa juzgarte.",
+        "Ahora pregúntate: si no tuviera que complacer a nadie y pudiera actuar de acuerdo con mis valores, ¿qué necesitaría considerar?"
+      ],
+      "placeholder": "Necesitaría considerar…",
+      "siguiente": "accion_decision"
+    },
+
+    "accion_decision": {
+      "tipo": "opciones",
+      "guardarEn": "accion24h",
+      "texto": ["¿Cuál podría ser tu próximo paso?"],
+      "opciones": [
+        { "valor": "reunir", "texto": "Reunir la información que falta", "siguiente": "momento_entrega" },
+        { "valor": "escribir", "texto": "Escribir ventajas y riesgos", "siguiente": "momento_entrega" },
+        { "valor": "fecha", "texto": "Establecer una fecha para decidir", "siguiente": "momento_entrega" },
+        { "valor": "conversar", "texto": "Conversar con una persona objetiva", "siguiente": "momento_entrega" },
+        { "valor": "probar", "texto": "Probar una versión pequeña antes de comprometerme", "siguiente": "momento_entrega" },
+        { "valor": "periodo", "texto": "Darme un periodo definido para reflexionar", "siguiente": "momento_entrega" }
+      ],
+      "afirmacionSugerida": "Puedo escucharme con honestidad. No necesito una certeza perfecta para elegir responsablemente."
+    },
+
+    "ruta_control": {
+      "tipo": "opciones",
+      "guardarEn": "queIntentaControlar",
+      "texto": [
+        "Hay situaciones que nos afectan profundamente, aunque no podamos dirigirlas.",
+        "Aceptar que algo está fuera de nuestro control no significa aprobarlo ni dejar de sentir. Significa reconocer dónde termina nuestra capacidad de intervención.",
+        "¿Qué has estado intentando controlar?"
+      ],
+      "opciones": [
+        { "valor": "decision_otro", "texto": "La decisión de otra persona", "siguiente": "ejercicio_manos" },
+        { "valor": "opinion", "texto": "La opinión que alguien tiene de mí", "siguiente": "ejercicio_manos" },
+        { "valor": "pasado", "texto": "Algo que ya ocurrió", "siguiente": "ejercicio_manos" },
+        { "valor": "respuesta", "texto": "Una respuesta que todavía no llega", "siguiente": "ejercicio_manos" },
+        { "valor": "resultado", "texto": "Un resultado futuro", "siguiente": "ejercicio_manos" },
+        { "valor": "comportamiento", "texto": "El comportamiento de alguien", "siguiente": "ejercicio_manos" },
+        { "valor": "otra", "texto": "Otra situación", "siguiente": "ejercicio_manos" }
+      ]
+    },
+
+    "ejercicio_manos": {
+      "tipo": "mensaje",
+      "texto": [
+        "Si te resulta cómodo, abre ambas manos.",
+        "Imagina que en una de ellas sostienes aquello que no depende de ti. En la otra, coloca simbólicamente lo que sí puedes elegir: tu respuesta, tus palabras, tus límites, tu tiempo o tu próximo paso.",
+        "Cierra suavemente la mano que representa tus decisiones. Deja abierta la otra.",
+        "Repite: \"Libero aquello que no puedo dirigir. Conservo mi capacidad de elegir cómo responder.\""
+      ],
+      "botones": [{ "texto": "Continuar", "siguiente": "momento_entrega" }],
+      "afirmacionSugerida": "No controlo todo lo que sucede, pero puedo elegir cómo cuidarme y cómo avanzar."
+    },
+
+    "ruta_otra": {
+      "tipo": "texto_triple",
+      "texto": [
+        "Gracias por poner en palabras lo que estás viviendo.",
+        "Aunque tu situación no aparezca entre las opciones anteriores, podemos observarla mediante tres preguntas."
+      ],
+      "campos": [
+        { "clave": "mayorPeso", "etiqueta": "¿Qué parte de esta situación está produciendo mayor peso en ti?" },
+        { "clave": "noDependeDeTi", "etiqueta": "¿Qué elemento no depende completamente de ti?" },
+        { "clave": "aTuAlcance", "etiqueta": "¿Qué acción o decisión sí se encuentra a tu alcance?" }
+      ],
+      "textoPosterior": "No necesitas encontrar una respuesta perfecta. El propósito de esta pausa es reconocer que una parte de la carga puede ser entregada y que otra parte puede transformarse en una acción consciente.",
+      "afirmacionSugerida": "Entrego lo que no puedo controlar y conservo la fuerza para actuar sobre lo que sí depende de mí.",
+      "siguiente": "momento_entrega",
+      "usaIA": true,
+      "contextoIA": "El lector describió una carga que no encajaba en las cinco rutas predefinidas del capítulo, respondiendo tres preguntas: qué le pesa más, qué no depende de él, y qué acción sí está a su alcance. Reconoce su situación particular sin diagnosticarla y ayúdalo a ver la diferencia entre lo que puede entregar y lo que puede convertir en acción. Etapa del método: Reconocer/Entregar."
+    },
+
+    "accion_propia_texto": {
+      "tipo": "texto",
+      "guardarEn": "accion24h",
+      "texto": ["Escribe tu propia acción para las próximas 24 horas."],
+      "placeholder": "Mi próximo paso será…",
+      "siguiente": "momento_entrega"
+    },
+
+    "momento_entrega": {
+      "tipo": "mensaje",
+      "texto": [
+        "Ahora que has observado tu situación, realizaremos el acto simbólico de entregar la carga.",
+        "Imagina nuevamente que la preocupación tiene un peso. Frente a ti existe un lugar seguro donde puedes depositarla. Puede representar a Dios, Cristo, la vida, tu fe, tu sabiduría interior o simplemente la decisión de no continuar sosteniendo todo al mismo tiempo.",
+        "Cuando estés preparado, repite: \"Reconozco esta carga. Entrego aquello que no puedo controlar. Conservo la responsabilidad que me corresponde y me abro a recibir claridad para avanzar.\"",
+        "Respira. No importa si la preocupación no desaparece completamente. Hoy has decidido relacionarte con ella de una manera diferente."
+      ],
+      "botones": [{ "texto": "He entregado mi carga", "siguiente": "crear_afirmacion" }]
+    },
+
+    "crear_afirmacion": {
+      "tipo": "afirmacion",
+      "texto": [
+        "Tu afirmación debe sentirse posible y honesta. No necesita afirmar que todo está bien si todavía no lo sientes.",
+        "Elige la frase que mejor te acompañe hoy, o escribe la tuya."
+      ],
+      "opcionesGenerales": [
+        "Entrego lo que no puedo controlar y actúo sobre lo que sí depende de mí.",
+        "No necesito resolverlo todo en este instante. Puedo avanzar paso a paso.",
+        "Suelto la urgencia y me abro a la claridad.",
+        "Puedo actuar con responsabilidad sin dejarme dirigir por el miedo."
+      ],
+      "opcionPropia": "Quiero escribir mi propia afirmación",
+      "usaIA": true,
+      "guardarEn": "afirmacionFinal",
+      "siguiente": "compromiso_24h"
+    },
+
+    "compromiso_24h": {
+      "tipo": "compromiso",
+      "texto": ["La reflexión se vuelve más poderosa cuando se transforma en una acción.", "¿Cuál será tu próximo paso durante las siguientes 24 horas?"],
+      "guardarPasoEn": "pasoConfirmado",
+      "guardarMomentoEn": "momentoPaso",
+      "opcionesMomento": ["Esta mañana", "Esta tarde", "Esta noche", "Mañana", "En una fecha específica"],
+      "siguiente": "cierre"
+    },
+
+    "cierre": {
+      "tipo": "mensaje_dinamico",
+      "plantilla": "Has llegado al final de esta experiencia.\n\nHoy reconociste una carga, identificaste lo que estabas sintiendo y separaste aquello que puedes atender de lo que no puedes controlar.\n\nTal vez el problema todavía esté presente. Pero ahora no necesitas sostenerlo de la misma manera.\n\nTu afirmación es:\n{afirmacionFinal}\n\nY tu próximo paso será:\n{pasoConfirmado} ({momentoPaso})\n\nCuando estés preparado, regresa al libro y completa el cierre del capítulo.",
+      "botones": [{ "texto": "Ver mi resumen", "siguiente": "resumen" }]
+    },
+
+    "resumen": {
+      "tipo": "resumen",
+      "titulo": "Mi recordatorio de hoy",
+      "campos": [
+        { "etiqueta": "La carga que decido entregar", "clave": "tipoCargaDescripcion", "alt": "tipoCarga" },
+        { "etiqueta": "Lo que sí depende de mí", "clave": "siPuedo", "alt": "aTuAlcance" },
+        { "etiqueta": "Mi próximo paso", "clave": "pasoConfirmado" },
+        { "etiqueta": "Mi afirmación", "clave": "afirmacionFinal" }
+      ],
+      "textoFinal": "No necesito resolverlo todo hoy. Solo necesito actuar sobre el siguiente paso posible.",
+      "botones": [
+        { "texto": "Descargar mi recordatorio", "accion": "descargar" },
+        { "texto": "Repetir la experiencia", "accion": "reiniciar" },
+        { "texto": "Volver al libro", "siguiente": "fin" }
+      ]
+    },
+
+    "fin": {
+      "tipo": "fin",
+      "texto": ["Puedes volver a este espacio cada vez que necesites hacer una pausa. Las decisiones importantes siempre te pertenecen."]
+    },
+
+    "riesgo": {
+      "tipo": "mensaje",
+      "esSeguridad": true,
+      "texto": [
+        "Lo que estás viviendo merece apoyo humano y atención adecuada.",
+        "Este acompañamiento digital no puede resolver situaciones de emergencia ni reemplazar ayuda profesional.",
+        "Busca ahora el apoyo de una persona adulta de confianza, un profesional, o el servicio de emergencia correspondiente a tu ubicación."
+      ],
+      "botones": [{ "texto": "Volver al libro", "siguiente": "fin" }]
+    }
+  },
+
+  "respuestasEspeciales": {
+    "no_se": "Está bien no tener una respuesta todavía. A veces la claridad aparece después de hacer una pausa. Puedes elegir la opción que más se acerque a lo que sientes o continuar sin responder.",
+    "no_quiere_escribir": "No necesitas explicar lo que ocurrió. Puedes mantener la situación en privado y realizar solamente la respiración y el ejercicio de entrega.",
+    "abandonar": "Puedes detenerte cuando quieras. La pausa también es una forma de cuidarte. El ejercicio estará disponible cuando decidas regresar."
+  }
+}

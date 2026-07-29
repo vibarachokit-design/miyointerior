@@ -1,0 +1,12 @@
+{
+  "name": "mi-yo-interior-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Experiencia interactiva (QR + IA) del libro Mi Yo Interior, de Paola Castillo Solís.",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "python3 -m http.server 8080"
+  }
+}
