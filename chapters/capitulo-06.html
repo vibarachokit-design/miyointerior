@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Mi Yo Interior - Capítulo 6 V5</title>
+<title>Mi Yo Interior - Capítulo 6 V6</title>
 <style>
 :root{--bg1:#101820;--bg2:#26343b;--bg3:#314238;--paper:#fffaf3;--paper2:#eef4ed;--ink:#1f2b27;--muted:#6f8179;--gold:#c9dfc7;--gold2:#7fa287;--line:#d6e3d1;--shadow:0 40px 90px rgba(0,0,0,.45)}
 *{box-sizing:border-box;margin:0;padding:0}html,body{height:100%;width:100%}body{font-family:'Segoe UI',Tahoma,Verdana,sans-serif;min-height:100dvh;background:linear-gradient(145deg,var(--bg1),var(--bg2) 52%,var(--bg3));display:flex;align-items:center;justify-content:center;color:var(--ink);overflow:hidden;padding:max(10px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))}.wrap{width:100%;max-width:min(96vw,980px);height:min(96dvh,940px);display:flex}.app{width:100%;height:100%;display:flex;flex-direction:column;overflow:hidden;background:rgba(255,250,243,.985);border-radius:30px;box-shadow:var(--shadow);border:1px solid rgba(201,223,199,.38)}.head{padding:15px 18px 12px;display:flex;gap:12px;align-items:center;border-bottom:1px solid var(--line);background:rgba(255,250,243,.92);flex-shrink:0}.avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;background:radial-gradient(circle at 35% 25%,#f7ffe9,#c9dfc7 50%,#4f7b67);box-shadow:0 0 18px rgba(201,223,199,.65)}.info{flex:1;min-width:0}.info h1{font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.info p{font-size:11.5px;color:var(--muted)}.tools{display:flex;gap:6px}.tool{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:#eef4ed;cursor:pointer;font-size:14px}.barwrap{height:4px;background:#dcebd9;flex-shrink:0}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--gold2),var(--gold));transition:width .3s ease}.msgs{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:clamp(12px,2vw,22px) clamp(14px,2.4vw,30px) clamp(90px,11vh,140px);display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}.m{max-width:min(98%,860px);padding:clamp(11px,1.8vw,16px) clamp(14px,2vw,20px);border-radius:18px;font-size:clamp(14px,1.7vw,17px);line-height:1.85;overflow-wrap:anywhere}.ai{background:var(--paper2);align-self:flex-start;border-bottom-left-radius:5px}.user{background:var(--gold);align-self:flex-end;border-bottom-right-radius:5px}.sys{background:#f4ffe8;border:1px solid var(--line);align-self:center;text-align:center;font-size:12.5px;color:#4d6349}.panel{background:#f7fff2;border:1px solid var(--line);align-self:stretch;max-width:100%}.typing{background:var(--paper2);color:#6f8179;align-self:flex-start;font-size:20px;letter-spacing:2px;min-width:58px;text-align:center}.opts{padding:8px 18px 10px;flex-shrink:0}.grid{display:none;flex-wrap:wrap;gap:7px;justify-content:center}.grid.show{display:flex}.opt{border:1.4px solid var(--line);border-radius:999px;padding:8px 13px;background:#eef4ed;color:#1f2b27;font-weight:650;cursor:pointer}.input{padding:0 18px 12px;flex-shrink:0}.row{display:none;gap:8px;background:#eef4ed;border-radius:25px;padding:4px;border:1px solid transparent}.row.show{display:flex}.row:focus-within{border-color:var(--gold)}input{flex:1;background:transparent;border:0;outline:0;padding:11px 12px;font-size:14px}.send{border:0;border-radius:21px;background:var(--gold);font-weight:750;padding:10px 16px;cursor:pointer}.safe{font-size:11.3px;color:#6f8179;text-align:center;padding:0 18px 9px;flex-shrink:0}.foot{padding:0 18px 12px;display:flex;gap:8px;justify-content:center;flex-shrink:0}.mini{border:0;background:transparent;color:#6f8179;font-size:12px;cursor:pointer}.modal{position:fixed;inset:0;background:rgba(0,0,0,.52);display:none;align-items:center;justify-content:center;z-index:9;padding:18px}.modal.show{display:flex}.card{background:var(--paper);border-radius:24px;padding:22px;width:min(540px,100%);box-shadow:var(--shadow)}.card h2{font-size:20px;margin-bottom:10px}.card p{font-size:14px;line-height:1.65;color:#34433d}.actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}.primary,.secondary{border:0;border-radius:14px;padding:10px 14px;cursor:pointer}.primary{background:var(--gold);font-weight:750}.secondary{background:#eef4ed}@media(max-width:540px){body{padding:0}.wrap{height:100dvh;max-width:100%}.app{border-radius:0}.head{padding:calc(12px + env(safe-area-inset-top)) 14px 10px}.msgs{padding:12px 14px calc(100px + env(safe-area-inset-bottom))}.m{font-size:14.6px}.tool{width:31px;height:31px}.opt{font-size:12px;padding:7px 11px}.foot{padding-bottom:calc(10px + env(safe-area-inset-bottom))}}
@@ -56,16 +56,134 @@ case 'fraseCustom':st.frase=reform(text);closing();break;
 case 'final':if(text.includes('Guardar'))downloadText();else if(text.includes('tarjeta'))downloadPNG();else if(text.includes('Volver al libro'))thanksNext();else if(text.includes('pausa')){st.step='pausaIntro';process('x')}else ai('Puedes elegir una de las opciones finales.',['📖 Volver al libro','💾 Guardar mi reflexión','🖼️ Descargar tarjeta visual PNG','🌿 Repetir la pausa']);break;
 case 'thanks':resetAll();break;default:resetAll();}}
 function reform(text){let x=String(text||'').trim();return x?(/[.!?]$/.test(x)?x:x+'.'):st.frase}
-function closing(){st.step='final';ai('🙏 Has terminado esta experiencia, **'+st.name+'**.\n\nHoy reconociste que el deseo de controlar **'+st.situacion+'** buscaba proteger **'+st.necesidad+'**. También identificaste tu parte: **'+st.accion+'**.\n\nAhora eliges dejar de **'+st.soltar+'** y permitir que **'+st.externo+'** siga su propio proceso.\n\nVolverás a ocuparte de la situación **'+st.momento+'**.\n\nTu frase personal es:\n\n**“'+st.frase+'”**\n\nCuando sientas que necesitas sostenerlo todo nuevamente, abre las manos y recuerda: tu responsabilidad puede permanecer contigo sin que todo el resultado quede encerrado en ellas.',['📖 Volver al libro','💾 Guardar mi reflexión','🖼️ Descargar tarjeta visual PNG','🌿 Repetir la pausa'])}
-function thanksNext(){st.step='thanks';ai('🙏 Gracias por completar la experiencia del **Capítulo 6: Soltar la necesidad de controlar**.\n\nHoy separaste cuidado, responsabilidad y control. También definiste una forma concreta de soltar sin abandonar tu parte.\n\nCuando regreses al libro, completa el cierre del capítulo con calma.\n\n📚 **Próximo capítulo:** Capítulo 7. Cuando tengas el guion, podremos continuar con la siguiente experiencia interactiva.',['🏠 Ir al inicio'])}
+function closing(){st.step='final';ai('🙏 Has terminado esta experiencia, **'+st.name+'**.\n\nHoy reconociste que el deseo de controlar **'+st.situacion+'** buscaba proteger **'+st.necesidad+'**. También identificaste tu parte: **'+st.accion+'**.\n\nAhora eliges dejar de **'+st.soltar+'** y permitir que **'+st.externo+'** siga su propio proceso.\n\nVolverás a ocuparte de la situación **'+st.momento+'**.\n\nTu frase personal es:\n\n**“'+st.frase+'”**\n\nCuando sientas que necesitas sostenerlo todo nuevamente, abre las manos y recuerda: tu responsabilidad puede permanecer contigo sin que todo el resultado quede encerrado en ellas.\n\n📚 **Próximo capítulo:** Capítulo 7, **Recibir sin culpa**. Ahí podrás abrirte al apoyo y al reconocimiento sin sentir que debes justificarlo todo.',['📖 Volver al libro','💾 Guardar mi reflexión','🖼️ Descargar tarjeta visual PNG','🌿 Repetir la pausa'])}
+function thanksNext(){st.step='thanks';ai('🙏 Gracias por completar la experiencia del **Capítulo 6: Soltar la necesidad de controlar**.\n\nHoy separaste cuidado, responsabilidad y control. También definiste una forma concreta de soltar sin abandonar tu parte.\n\nCuando regreses al libro, completa el cierre del capítulo con calma.\n\n📚 **Próximo capítulo:** Capítulo 7, **Recibir sin culpa**. Ahí podrás abrirte al apoyo y al reconocimiento sin sentir que debes justificarlo todo.',['🏠 Ir al inicio'])}
 function record(){return 'MI PRÁCTICA PARA SOLTAR\n\nLa situación que intento controlar:\n'+st.situacion+'\n\nLo que intento evitar o asegurar:\n'+st.necesidad+'\n\nLa parte que sí me corresponde:\n'+st.accion+'\n\nLo que no puedo dirigir completamente:\n'+st.externo+'\n\nLo que dejaré de hacer:\n'+st.soltar+'\n\nCuándo actuaré o revisaré:\n'+st.momento+'\n\nMi frase personal:\n'+st.frase}
 function downloadText(){let blob=new Blob([record()],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Mi_Practica_Para_Soltar_Capitulo_6.txt';a.click();URL.revokeObjectURL(url);ai('✅ Tu reflexión se descargó como archivo de texto. También puedes descargar la tarjeta visual PNG.',['🖼️ Descargar tarjeta visual PNG','📖 Volver al libro','🌿 Repetir la pausa'])}
-function downloadPNG(){let c=document.createElement('canvas'),scale=2,w=1000,h=1320;c.width=w*scale;c.height=h*scale;let ctx=c.getContext('2d');ctx.scale(scale,scale);ctx.fillStyle='#fffaf3';round(ctx,0,0,w,h,34);ctx.fill();ctx.fillStyle='#eef4ed';round(ctx,36,36,w-72,h-72,28);ctx.fill();ctx.strokeStyle='#c9dfc7';ctx.lineWidth=2;ctx.stroke();ctx.fillStyle='#1f2b27';ctx.font='700 40px Segoe UI';ctx.fillText('Mi práctica para soltar',70,105);ctx.font='17px Segoe UI';ctx.fillStyle='#6f8179';ctx.fillText('Mi Yo Interior - Capitulo 6: Soltar la necesidad de controlar',70,138);let y=190;box(ctx,'La situación que intento controlar',st.situacion,70,y,w-140);y+=155;box(ctx,'Lo que intento evitar o asegurar',st.necesidad,70,y,w-140);y+=155;box(ctx,'La parte que sí me corresponde',st.accion,70,y,w-140,true);y+=155;box(ctx,'Lo que no puedo dirigir completamente',st.externo,70,y,w-140);y+=155;box(ctx,'Lo que dejaré de hacer',st.soltar,70,y,w-140);y+=155;box(ctx,'Cuándo actuaré o revisaré',st.momento,70,y,w-140);y+=170;box(ctx,'Mi frase personal',st.frase,70,y,w-140,true);ctx.fillStyle='#3f725b';ctx.font='18px Segoe UI';wrap(ctx,'Soltar la necesidad de controlar significa actuar con responsabilidad y permitir que el tiempo, las demás personas y los procesos conserven la parte que les corresponde.',70,h-92,w-140,26);let a=document.createElement('a');a.href=c.toDataURL('image/png');a.download='Mi_Practica_Para_Soltar_Capitulo_6.png';a.click();ai('✅ Tu tarjeta visual PNG se descargó correctamente.',['📖 Volver al libro','🌿 Repetir la pausa'])}
-function box(ctx,title,text,x,y,w,featured){ctx.fillStyle=featured?'#dcebd9':'#fffaf3';round(ctx,x,y,w,118,20);ctx.fill();ctx.strokeStyle='#c9dfc7';ctx.stroke();ctx.fillStyle='#3f725b';ctx.font='700 19px Segoe UI';ctx.fillText(title,x+22,y+32);ctx.fillStyle='#1f2b27';ctx.font=featured?'700 21px Segoe UI':'17px Segoe UI';wrap(ctx,String(text||'No especificado'),x+22,y+62,w-44,25)}
-function wrap(ctx,text,x,y,max,line){let words=String(text).replace(/\n/g,' \n ').split(' '),l='';for(let wd of words){if(wd==='\n'){ctx.fillText(l,x,y);l='';y+=line;continue}let test=l+wd+' ';if(ctx.measureText(test).width>max&&l){ctx.fillText(l,x,y);l=wd+' ';y+=line}else l=test}if(l)ctx.fillText(l,x,y)}
-function round(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
-function save(show){localStorage.setItem('miYoInteriorCap6V5SoltarLaNecesidadDeControlar',JSON.stringify(st));if(show)modal('Progreso guardado','Tu avance quedó guardado en este dispositivo.',[['Aceptar',closeModal,'primary']])}
-function load(){try{return JSON.parse(localStorage.getItem('miYoInteriorCap6V5SoltarLaNecesidadDeControlar')||'null')}catch(e){return null}}
+
+// ---- NUEVA FUNCIÓN downloadPNG CON ALTURA DINÁMICA ----
+function downloadPNG(){
+    var c=document.createElement('canvas');
+    var scale=2;
+    var w=1000;
+
+    function countLines(text,maxWidth,fontSize){
+        var ctx=document.createElement('canvas').getContext('2d');
+        ctx.font=fontSize+'px Segoe UI';
+        var words=String(text).replace(/\n/g,' \n ').split(' ');
+        var lines=0,current='';
+        for(var i=0;i<words.length;i++){
+            var wd=words[i];
+            if(wd==='\n'){lines++;current='';continue;}
+            var test=current+wd+' ';
+            if(ctx.measureText(test).width>maxWidth&&current){lines++;current=wd+' ';}
+            else current=test;
+        }
+        if(current)lines++;
+        return Math.max(lines,1);
+    }
+
+    var lineHeight=25;
+    var maxWidth=w-140-44;
+    var fields=[
+        {title:'La situación que intento controlar',text:st.situacion},
+        {title:'Lo que intento evitar o asegurar',text:st.necesidad},
+        {title:'La parte que sí me corresponde',text:st.accion,featured:true},
+        {title:'Lo que no puedo dirigir completamente',text:st.externo},
+        {title:'Lo que dejaré de hacer',text:st.soltar},
+        {title:'Cuándo actuaré o revisaré',text:st.momento},
+        {title:'Mi frase personal',text:st.frase,featured:true}
+    ];
+
+    var h=190;
+    fields.forEach(function(f){
+        var isFeatured=f.featured||false;
+        var fontSize=isFeatured?21:17;
+        var lines=countLines(f.text,maxWidth,fontSize);
+        h+=32+30+(lines*lineHeight)+10+12;
+    });
+    h+=120;
+    h=Math.max(1320,h);
+
+    c.width=w*scale;
+    c.height=h*scale;
+    var ctx=c.getContext('2d');
+    ctx.scale(scale,scale);
+
+    ctx.fillStyle='#fffaf3';
+    round(ctx,0,0,w,h,34);
+    ctx.fill();
+
+    ctx.fillStyle='#eef4ed';
+    round(ctx,36,36,w-72,h-72,28);
+    ctx.fill();
+    ctx.strokeStyle='#c9dfc7';
+    ctx.lineWidth=2;
+    ctx.stroke();
+
+    ctx.fillStyle='#1f2b27';
+    ctx.font='700 40px Segoe UI';
+    ctx.fillText('Mi práctica para soltar',70,105);
+    ctx.font='17px Segoe UI';
+    ctx.fillStyle='#6f8179';
+    ctx.fillText('Mi Yo Interior - Capítulo 6: Soltar la necesidad de controlar',70,138);
+
+    var y=190;
+    var x=70;
+    var fieldWidth=w-140;
+
+    fields.forEach(function(f){
+        var isFeatured=f.featured||false;
+        var fontSize=isFeatured?21:17;
+        var lines=countLines(f.text,maxWidth,fontSize);
+        var boxHeight=32+30+(lines*lineHeight)+10;
+
+        ctx.fillStyle=isFeatured?'#dcebd9':'#fffaf3';
+        round(ctx,x,y,fieldWidth,boxHeight,20);
+        ctx.fill();
+        ctx.strokeStyle='#c9dfc7';
+        ctx.lineWidth=1.5;
+        ctx.stroke();
+
+        ctx.fillStyle='#3f725b';
+        ctx.font='700 19px Segoe UI';
+        ctx.fillText(f.title,x+22,y+32);
+
+        ctx.fillStyle='#1f2b27';
+        ctx.font=(isFeatured?'700 ':'')+fontSize+'px Segoe UI';
+        wrap(ctx,String(f.text||'No especificado'),x+22,y+62,maxWidth,lineHeight);
+
+        y+=boxHeight+12;
+    });
+
+    ctx.fillStyle='#3f725b';
+    ctx.font='18px Segoe UI';
+    wrap(ctx,'Soltar la necesidad de controlar significa actuar con responsabilidad y permitir que el tiempo, las demás personas y los procesos conserven la parte que les corresponde.',70,h-82,w-140,26);
+
+    var a=document.createElement('a');
+    a.href=c.toDataURL('image/png');
+    a.download='Mi_Practica_Para_Soltar_Capitulo_6.png';
+    a.click();
+    ai('✅ Tu tarjeta visual PNG se descargó correctamente.',['📖 Volver al libro','🌿 Repetir la pausa']);
+}
+
+// ---- FUNCIÓN wrap (se mantiene igual) ----
+function wrap(ctx,text,x,y,max,line){
+    var words=String(text).replace(/\n/g,' \n ').split(' ');
+    var current='';
+    for(var i=0;i<words.length;i++){
+        var wd=words[i];
+        if(wd==='\n'){ctx.fillText(current,x,y);current='';y+=line;continue;}
+        var test=current+wd+' ';
+        if(ctx.measureText(test).width>max&&current){ctx.fillText(current,x,y);current=wd+' ';y+=line;}
+        else current=test;
+    }
+    if(current)ctx.fillText(current,x,y);
+}
+
+function round(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+function save(show){localStorage.setItem('miYoInteriorCap6V6SoltarLaNecesidadDeControlar',JSON.stringify(st));if(show)modal('Progreso guardado','Tu avance quedó guardado en este dispositivo.',[['Aceptar',closeModal,'primary']])}
+function load(){try{return JSON.parse(localStorage.getItem('miYoInteriorCap6V6SoltarLaNecesidadDeControlar')||'null')}catch(e){return null}}
 function resetAll(){let v=st.voice,a=st.ambient,d=st.dark,s=st.slow;st={step:'welcome',name:'',situacion:'',necesidad:'',accion:'',externo:'',soltar:'',momento:'',frase:'',history:[],voice:v,ambient:a,dark:d,slow:s};msgs.innerHTML='';opts([]);inputShow(false);start()}
 function modal(t,b,acts){$('mt').textContent=t;$('mb').textContent=b;let ma=$('ma');ma.innerHTML='';acts.forEach(act=>{let bt=document.createElement('button');bt.textContent=act[0];bt.className=act[2]==='primary'?'primary':'secondary';bt.onclick=act[1];ma.appendChild(bt)});$('modal').classList.add('show')}
 function closeModal(){$('modal').classList.remove('show')}
@@ -74,7 +192,7 @@ function voice(){st.voice=!st.voice;$('voice').textContent=st.voice?'🔊':'🔈
 function theme(){st.dark=!st.dark;document.body.style.filter=st.dark?'brightness(.82) contrast(1.05)':'none';save(false)}
 function speed(){st.slow=!st.slow;$('speed').textContent=st.slow?'🐢':'🙂';save(false);modal('Velocidad de lectura',st.slow?'Modo pausado activado.':'Modo normal activado.',[['Aceptar',closeModal,'primary']])}
 function start(){progress();add('Esta experiencia ofrece acompañamiento reflexivo y educativo. No reemplaza atención profesional.','sys');ai('🌿 **Bienvenido a Mi Yo Interior**\n\nHas llegado desde el capítulo **“Soltar la necesidad de controlar”**.\n\nA veces no solo atendemos una situación: también intentamos anticipar cada respuesta, evitar toda dificultad y asegurar el desenlace.\n\nEn esta experiencia separarás lo que puedes cuidar de aquello que no puedes dirigir.',['✨ Comenzar','⏳ Volver más tarde'])}
-$('send').onclick=()=>{let t=txt.value.trim();if(t){txt.value='';handle(t)}};txt.addEventListener('keydown',e=>{if(e.key==='Enter')$('send').click()});$('reset').onclick=resetAll;$('save').onclick=()=>save(true);$('clear').onclick=()=>{localStorage.removeItem('miYoInteriorCap6V5SoltarLaNecesidadDeControlar');modal('Datos borrados','Se eliminó el progreso guardado en este dispositivo.',[['Aceptar',closeModal,'primary']])};$('amb').onclick=ambient;$('voice').onclick=voice;$('theme').onclick=theme;$('speed').onclick=speed;
+$('send').onclick=()=>{let t=txt.value.trim();if(t){txt.value='';handle(t)}};txt.addEventListener('keydown',e=>{if(e.key==='Enter')$('send').click()});$('reset').onclick=resetAll;$('save').onclick=()=>save(true);$('clear').onclick=()=>{localStorage.removeItem('miYoInteriorCap6V6SoltarLaNecesidadDeControlar');modal('Datos borrados','Se eliminó el progreso guardado en este dispositivo.',[['Aceptar',closeModal,'primary']])};$('amb').onclick=ambient;$('voice').onclick=voice;$('theme').onclick=theme;$('speed').onclick=speed;
 window.onload=()=>{setTimeout(()=>{let s=load();if(s&&s.history&&s.history.length>2){modal('Encontré un progreso previo','Hay una experiencia guardada de este capítulo. Puedes continuar o iniciar nuevamente.',[['Iniciar de nuevo',()=>{closeModal();resetAll()},'secondary'],['Continuar',()=>{closeModal();st=s;msgs.innerHTML='';st.history.forEach(m=>add(m.text,m.who,m.extra||''));ai('Continuamos desde tu experiencia guardada. Puedes guardar tu reflexión, descargar tu tarjeta visual o repetir la pausa.',['💾 Guardar mi reflexión','🖼️ Descargar tarjeta visual PNG','🌿 Repetir la pausa'])},'primary']])}else start()},300)};
 </script>
 </body>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Mi Yo Interior - Capítulo 2 V5 Corregido</title>
+<title>Mi Yo Interior - Capítulo 2 V6</title>
 <style>
 :root{--bg1:#101820;--bg2:#25333b;--bg3:#493626;--paper:#fffaf3;--paper2:#f3eadf;--ink:#2a2118;--muted:#7a6a58;--gold:#d7bd8a;--gold2:#a67c42;--line:#e4d1af;--shadow:0 40px 90px rgba(0,0,0,.45)}
 *{box-sizing:border-box;margin:0;padding:0}html,body{height:100%;width:100%}body{font-family:'Segoe UI',Tahoma,Verdana,sans-serif;min-height:100dvh;background:linear-gradient(145deg,var(--bg1),var(--bg2) 52%,var(--bg3));display:flex;align-items:center;justify-content:center;color:var(--ink);overflow:hidden;padding:max(10px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))}.wrap{width:100%;max-width:min(96vw,980px);height:min(96dvh,940px);display:flex}.app{width:100%;height:100%;display:flex;flex-direction:column;overflow:hidden;background:rgba(255,250,243,.985);border-radius:30px;box-shadow:var(--shadow);border:1px solid rgba(215,189,138,.35)}.head{padding:15px 18px 12px;display:flex;gap:12px;align-items:center;border-bottom:1px solid var(--line);background:rgba(255,250,243,.92);flex-shrink:0}.avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;background:radial-gradient(circle at 35% 25%,#fff4cc,#d7bd8a 50%,#7c5731);box-shadow:0 0 18px rgba(215,189,138,.65)}.info{flex:1;min-width:0}.info h1{font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.info p{font-size:11.5px;color:var(--muted)}.tools{display:flex;gap:6px}.tool{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:#f3eadf;cursor:pointer;font-size:14px}.barwrap{height:4px;background:#eadfc9;flex-shrink:0}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--gold2),var(--gold));transition:width .3s ease}.msgs{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:clamp(12px,2vw,22px) clamp(14px,2.4vw,30px) clamp(90px,11vh,140px);display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}.m{max-width:min(98%,860px);padding:clamp(11px,1.8vw,16px) clamp(14px,2vw,20px);border-radius:18px;font-size:clamp(14px,1.7vw,17px);line-height:1.85;overflow-wrap:anywhere}.ai{background:var(--paper2);align-self:flex-start;border-bottom-left-radius:5px}.user{background:var(--gold);align-self:flex-end;border-bottom-right-radius:5px}.sys{background:#fff3d4;border:1px solid var(--line);align-self:center;text-align:center;font-size:12.5px;color:#765c35}.panel{background:#fff8e9;border:1px solid var(--line);align-self:stretch;max-width:100%}.typing{background:var(--paper2);color:#7a6a58;align-self:flex-start;font-size:20px;letter-spacing:2px;min-width:58px;text-align:center}.opts{padding:8px 18px 10px;flex-shrink:0}.grid{display:none;flex-wrap:wrap;gap:7px;justify-content:center}.grid.show{display:flex}.opt{border:1.4px solid var(--line);border-radius:999px;padding:8px 13px;background:#f3eadf;color:#2a2118;font-weight:650;cursor:pointer}.input{padding:0 18px 12px;flex-shrink:0}.row{display:none;gap:8px;background:#f3eadf;border-radius:25px;padding:4px;border:1px solid transparent}.row.show{display:flex}.row:focus-within{border-color:var(--gold)}input{flex:1;background:transparent;border:0;outline:0;padding:11px 12px;font-size:14px}.send{border:0;border-radius:21px;background:var(--gold);font-weight:750;padding:10px 16px;cursor:pointer}.safe{font-size:11.3px;color:#7a6a58;text-align:center;padding:0 18px 9px;flex-shrink:0}.foot{padding:0 18px 12px;display:flex;gap:8px;justify-content:center;flex-shrink:0}.mini{border:0;background:transparent;color:#7a6a58;font-size:12px;cursor:pointer}.modal{position:fixed;inset:0;background:rgba(0,0,0,.52);display:none;align-items:center;justify-content:center;z-index:9;padding:18px}.modal.show{display:flex}.card{background:var(--paper);border-radius:24px;padding:22px;width:min(540px,100%);box-shadow:var(--shadow)}.card h2{font-size:20px;margin-bottom:10px}.card p{font-size:14px;line-height:1.65;color:#4d3920}.actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}.primary,.secondary{border:0;border-radius:14px;padding:10px 14px;cursor:pointer}.primary{background:var(--gold);font-weight:750}.secondary{background:#f3eadf}@media(max-width:540px){body{padding:0}.wrap{height:100dvh;max-width:100%}.app{border-radius:0}.head{padding:calc(12px + env(safe-area-inset-top)) 14px 10px}.msgs{padding:12px 14px calc(100px + env(safe-area-inset-bottom))}.m{font-size:14.6px}.tool{width:31px;height:31px}.opt{font-size:12px;padding:7px 11px}.foot{padding-bottom:calc(10px + env(safe-area-inset-bottom))}}
@@ -56,17 +56,135 @@ case 'fraseChange':st.fraseNueva=reform(text);mirror();break;
 case 'fraseCustom':st.fraseNueva=reform(text);mirror();break;
 case 'final':if(text.includes('Guardar'))downloadText();else if(text.includes('tarjeta'))downloadPNG();else if(text.includes('Volver al libro'))thanksNext();else if(text.includes('pausa')){st.step='pausaIntro';process('x')}else if(text.includes('otra frase'))resetAll();else ai('Puedes elegir una de las opciones finales.',['📖 Volver al libro','💾 Guardar mi nueva frase','🖼️ Descargar tarjeta visual PNG','🌿 Repetir la pausa','🔄 Transformar otra frase']);break;
 case 'thanks':resetAll();break;default:resetAll();}}
-function mirror(){st.step='final';ai('🪞 Quiero devolverte lo que tú mismo reconociste, **'+st.name+'**.\n\nCuando ocurrió **'+st.hecho+'**, te dijiste **“'+st.fraseOriginal+'”**, y esas palabras hicieron que **'+st.efecto+'**.\n\nSin embargo, también recordaste **'+st.evidencia+'**.\n\nPor eso descubriste que aquella frase no explicaba toda tu historia. Tu experiencia puede expresarse de una manera más completa y justa:\n\n**“'+st.fraseNueva+'”**\n\nLa nueva respuesta no vino de mí. Se construyó con el hecho, la evidencia y las palabras que tú mismo elegiste.\n\n❤️ Has terminado esta experiencia.\n\nHoy no intentaste esconder una dificultad ni convencerte de algo que no sientes.\n\nEscuchaste una frase que repetías, reconociste su efecto y cambiaste una palabra absoluta por una posibilidad más real.\n\nCuando vuelva a aparecer **“'+st.fraseOriginal+'”**, puedes detenerte y preguntarte:\n\n**¿Esto describe un momento o define todo lo que soy?**\n\nTu frase personal es:\n\n**“'+st.fraseNueva+'”**',['📖 Volver al libro','💾 Guardar mi nueva frase','🖼️ Descargar tarjeta visual PNG','🌿 Repetir la pausa','🔄 Transformar otra frase'])}
+function mirror(){st.step='final';ai('🪞 Quiero devolverte lo que tú mismo reconociste, **'+st.name+'**.\n\nCuando ocurrió **'+st.hecho+'**, te dijiste **“'+st.fraseOriginal+'”**, y esas palabras hicieron que **'+st.efecto+'**.\n\nSin embargo, también recordaste **'+st.evidencia+'**.\n\nPor eso descubriste que aquella frase no explicaba toda tu historia. Tu experiencia puede expresarse de una manera más completa y justa:\n\n**“'+st.fraseNueva+'”**\n\nLa nueva respuesta no vino de mí. Se construyó con el hecho, la evidencia y las palabras que tú mismo elegiste.\n\n❤️ Has terminado esta experiencia.\n\nHoy no intentaste esconder una dificultad ni convencerte de algo que no sientes.\n\nEscuchaste una frase que repetías, reconociste su efecto y cambiaste una palabra absoluta por una posibilidad más real.\n\nCuando vuelva a aparecer **“'+st.fraseOriginal+'”**, puedes detenerte y preguntarte:\n\n**¿Esto describe un momento o define todo lo que soy?**\n\nTu frase personal es:\n\n**“'+st.fraseNueva+'”**\n\n📚 **Próximo capítulo:** Capítulo 3, **Escuchar el miedo sin obedecerlo**. Ahí podrás observar un miedo concreto sin negarlo ni entregarle la dirección de tus decisiones.',['📖 Volver al libro','💾 Guardar mi nueva frase','🖼️ Descargar tarjeta visual PNG','🌿 Repetir la pausa','🔄 Transformar otra frase'])}
 function reform(text){let x=String(text||'').trim();return x?(/[.!?]$/.test(x)?x:x+'.'):st.fraseNueva}
 function thanksNext(){st.step='thanks';ai('🙏 Gracias por completar la experiencia del **Capítulo 2: Las palabras que te construyen**.\n\nHoy escuchaste una frase que repetías, reconociste su efecto y cambiaste una palabra absoluta por una posibilidad más real.\n\nCuando regreses al libro, completa el cierre del capítulo con calma.\n\n📚 **Próximo capítulo:** Capítulo 3, **Escuchar el miedo sin obedecerlo**. Ahí podrás observar un miedo concreto sin negarlo ni entregarle la dirección de tus decisiones.',['🏠 Ir al inicio'])}
 function record(){return 'LAS PALABRAS QUE ELIJO\n\nLa frase que solía repetirme:\n'+st.fraseOriginal+'\n\nEl hecho que la hizo aparecer:\n'+st.hecho+'\n\nEl efecto que producía en mí:\n'+st.efecto+'\n\nLa palabra que decidí cambiar:\n'+st.palabraLimite+'\n\nLa palabra o posibilidad elegida:\n'+st.palabraPuente+'\n\nLa evidencia que yo mismo encontré:\n'+st.evidencia+'\n\nMi nueva manera de hablarme:\n'+st.fraseNueva}
 function downloadText(){let blob=new Blob([record()],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Las_Palabras_Que_Elijo_Capitulo_2.txt';a.click();URL.revokeObjectURL(url);ai('✅ Tu nueva frase se descargó como archivo de texto. También puedes descargar la tarjeta visual PNG.',['🖼️ Descargar tarjeta visual PNG','📖 Volver al libro','🔄 Transformar otra frase'])}
-function downloadPNG(){let c=document.createElement('canvas'),scale=2,w=1000,h=1320;c.width=w*scale;c.height=h*scale;let ctx=c.getContext('2d');ctx.scale(scale,scale);ctx.fillStyle='#fffaf3';round(ctx,0,0,w,h,34);ctx.fill();ctx.fillStyle='#f3eadf';round(ctx,36,36,w-72,h-72,28);ctx.fill();ctx.strokeStyle='#d7bd8a';ctx.lineWidth=2;ctx.stroke();ctx.fillStyle='#2a2118';ctx.font='700 40px Segoe UI';ctx.fillText('Las palabras que elijo',70,105);ctx.font='17px Segoe UI';ctx.fillStyle='#7f6d5a';ctx.fillText('Mi Yo Interior - Capitulo 2: Las palabras que te construyen',70,138);let y=190;box(ctx,'La frase que solía repetirme',st.fraseOriginal,70,y,w-140);y+=155;box(ctx,'El hecho que la hizo aparecer',st.hecho,70,y,w-140);y+=155;box(ctx,'El efecto que producía en mí',st.efecto,70,y,w-140);y+=155;box(ctx,'La palabra que decidí cambiar',st.palabraLimite,70,y,w-140);y+=145;box(ctx,'La palabra o posibilidad elegida',st.palabraPuente,70,y,w-140);y+=145;box(ctx,'La evidencia que yo mismo encontré',st.evidencia,70,y,w-140);y+=170;box(ctx,'Mi nueva manera de hablarme',st.fraseNueva,70,y,w-140,true);ctx.fillStyle='#7c5731';ctx.font='18px Segoe UI';wrap(ctx,'Una experiencia puede mostrar algo que necesito aprender, pero no tiene que convertirse en una sentencia sobre quién soy.',70,h-92,w-140,26);let a=document.createElement('a');a.href=c.toDataURL('image/png');a.download='Las_Palabras_Que_Elijo_Capitulo_2.png';a.click();ai('✅ Tu tarjeta visual PNG se descargó correctamente.',['📖 Volver al libro','🔄 Transformar otra frase'])}
-function box(ctx,title,text,x,y,w,featured){ctx.fillStyle=featured?'#ead7ae':'#fffaf3';round(ctx,x,y,w,118,20);ctx.fill();ctx.strokeStyle='#d7bd8a';ctx.stroke();ctx.fillStyle='#7c5731';ctx.font='700 19px Segoe UI';ctx.fillText(title,x+22,y+32);ctx.fillStyle='#2a2118';ctx.font=featured?'700 21px Segoe UI':'17px Segoe UI';wrap(ctx,String(text||'No especificado'),x+22,y+62,w-44,25)}
-function wrap(ctx,text,x,y,max,line){let words=String(text).replace(/\n/g,' \n ').split(' '),l='';for(let wd of words){if(wd==='\n'){ctx.fillText(l,x,y);l='';y+=line;continue}let test=l+wd+' ';if(ctx.measureText(test).width>max&&l){ctx.fillText(l,x,y);l=wd+' ';y+=line}else l=test}if(l)ctx.fillText(l,x,y)}
-function round(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
-function save(show){localStorage.setItem('miYoInteriorCap2V5GuionCorregido',JSON.stringify(st));if(show)modal('Progreso guardado','Tu avance quedó guardado en este dispositivo.',[['Aceptar',closeModal,'primary']])}
-function load(){try{return JSON.parse(localStorage.getItem('miYoInteriorCap2V5GuionCorregido')||'null')}catch(e){return null}}
+
+// ---- NUEVA FUNCIÓN downloadPNG CON ALTURA DINÁMICA ----
+function downloadPNG(){
+    var c=document.createElement('canvas');
+    var scale=2;
+    var w=1000;
+
+    function countLines(text,maxWidth,fontSize){
+        var ctx=document.createElement('canvas').getContext('2d');
+        ctx.font=fontSize+'px Segoe UI';
+        var words=String(text).replace(/\n/g,' \n ').split(' ');
+        var lines=0,current='';
+        for(var i=0;i<words.length;i++){
+            var wd=words[i];
+            if(wd==='\n'){lines++;current='';continue;}
+            var test=current+wd+' ';
+            if(ctx.measureText(test).width>maxWidth&&current){lines++;current=wd+' ';}
+            else current=test;
+        }
+        if(current)lines++;
+        return Math.max(lines,1);
+    }
+
+    var lineHeight=25;
+    var maxWidth=w-140-44;
+    var fields=[
+        {title:'La frase que solía repetirme',text:st.fraseOriginal},
+        {title:'El hecho que la hizo aparecer',text:st.hecho},
+        {title:'El efecto que producía en mí',text:st.efecto},
+        {title:'La palabra que decidí cambiar',text:st.palabraLimite},
+        {title:'La palabra o posibilidad elegida',text:st.palabraPuente},
+        {title:'La evidencia que yo mismo encontré',text:st.evidencia},
+        {title:'Mi nueva manera de hablarme',text:st.fraseNueva,featured:true}
+    ];
+
+    var h=190;
+    fields.forEach(function(f){
+        var isFeatured=f.featured||false;
+        var fontSize=isFeatured?21:17;
+        var lines=countLines(f.text,maxWidth,fontSize);
+        h+=32+30+(lines*lineHeight)+10+12;
+    });
+    h+=120;
+    h=Math.max(1320,h);
+
+    c.width=w*scale;
+    c.height=h*scale;
+    var ctx=c.getContext('2d');
+    ctx.scale(scale,scale);
+
+    ctx.fillStyle='#fffaf3';
+    round(ctx,0,0,w,h,34);
+    ctx.fill();
+
+    ctx.fillStyle='#f3eadf';
+    round(ctx,36,36,w-72,h-72,28);
+    ctx.fill();
+    ctx.strokeStyle='#d7bd8a';
+    ctx.lineWidth=2;
+    ctx.stroke();
+
+    ctx.fillStyle='#2a2118';
+    ctx.font='700 40px Segoe UI';
+    ctx.fillText('Las palabras que elijo',70,105);
+    ctx.font='17px Segoe UI';
+    ctx.fillStyle='#7f6d5a';
+    ctx.fillText('Mi Yo Interior - Capítulo 2: Las palabras que te construyen',70,138);
+
+    var y=190;
+    var x=70;
+    var fieldWidth=w-140;
+
+    fields.forEach(function(f){
+        var isFeatured=f.featured||false;
+        var fontSize=isFeatured?21:17;
+        var lines=countLines(f.text,maxWidth,fontSize);
+        var boxHeight=32+30+(lines*lineHeight)+10;
+
+        ctx.fillStyle=isFeatured?'#ead7ae':'#fffaf3';
+        round(ctx,x,y,fieldWidth,boxHeight,20);
+        ctx.fill();
+        ctx.strokeStyle='#d7bd8a';
+        ctx.lineWidth=1.5;
+        ctx.stroke();
+
+        ctx.fillStyle='#7c5731';
+        ctx.font='700 19px Segoe UI';
+        ctx.fillText(f.title,x+22,y+32);
+
+        ctx.fillStyle='#2a2118';
+        ctx.font=(isFeatured?'700 ':'')+fontSize+'px Segoe UI';
+        wrap(ctx,String(f.text||'No especificado'),x+22,y+62,maxWidth,lineHeight);
+
+        y+=boxHeight+12;
+    });
+
+    ctx.fillStyle='#7c5731';
+    ctx.font='18px Segoe UI';
+    wrap(ctx,'Una experiencia puede mostrar algo que necesito aprender, pero no tiene que convertirse en una sentencia sobre quién soy.',70,h-82,w-140,26);
+
+    var a=document.createElement('a');
+    a.href=c.toDataURL('image/png');
+    a.download='Las_Palabras_Que_Elijo_Capitulo_2.png';
+    a.click();
+    ai('✅ Tu tarjeta visual PNG se descargó correctamente.',['📖 Volver al libro','🔄 Transformar otra frase']);
+}
+
+// ---- FUNCIÓN wrap (se mantiene igual) ----
+function wrap(ctx,text,x,y,max,line){
+    var words=String(text).replace(/\n/g,' \n ').split(' ');
+    var current='';
+    for(var i=0;i<words.length;i++){
+        var wd=words[i];
+        if(wd==='\n'){ctx.fillText(current,x,y);current='';y+=line;continue;}
+        var test=current+wd+' ';
+        if(ctx.measureText(test).width>max&&current){ctx.fillText(current,x,y);current=wd+' ';y+=line;}
+        else current=test;
+    }
+    if(current)ctx.fillText(current,x,y);
+}
+
+function round(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+function save(show){localStorage.setItem('miYoInteriorCap2V6PalabrasQueTeConstruyen',JSON.stringify(st));if(show)modal('Progreso guardado','Tu avance quedó guardado en este dispositivo.',[['Aceptar',closeModal,'primary']])}
+function load(){try{return JSON.parse(localStorage.getItem('miYoInteriorCap2V6PalabrasQueTeConstruyen')||'null')}catch(e){return null}}
 function resetAll(){let v=st.voice,a=st.ambient,d=st.dark,s=st.slow;st={step:'welcome',name:'',fraseOriginal:'',efecto:'',palabraLimite:'',palabraPuente:'',hecho:'',evidencia:'',fraseNueva:'',history:[],voice:v,ambient:a,dark:d,slow:s};msgs.innerHTML='';opts([]);inputShow(false);start()}
 function modal(t,b,acts){$('mt').textContent=t;$('mb').textContent=b;let ma=$('ma');ma.innerHTML='';acts.forEach(act=>{let bt=document.createElement('button');bt.textContent=act[0];bt.className=act[2]==='primary'?'primary':'secondary';bt.onclick=act[1];ma.appendChild(bt)});$('modal').classList.add('show')}
 function closeModal(){$('modal').classList.remove('show')}
@@ -75,7 +193,7 @@ function voice(){st.voice=!st.voice;$('voice').textContent=st.voice?'🔊':'🔈
 function theme(){st.dark=!st.dark;document.body.style.filter=st.dark?'brightness(.82) contrast(1.05)':'none';save(false)}
 function speed(){st.slow=!st.slow;$('speed').textContent=st.slow?'🐢':'🙂';save(false);modal('Velocidad de lectura',st.slow?'Modo pausado activado.':'Modo normal activado.',[['Aceptar',closeModal,'primary']])}
 function start(){progress();add('Esta experiencia ofrece acompañamiento reflexivo y educativo. No reemplaza atención profesional.','sys');ai('🌿 **Bienvenido a Mi Yo Interior**\n\nHas llegado desde el capítulo **“Las palabras que te construyen”**.\n\nLas palabras que repites sobre ti pueden convertirse en una manera de mirarte. Algunas te ayudan a avanzar. Otras te hacen creer que una dificultad define todo lo que eres.\n\nEn esta breve experiencia escucharás una de esas frases y descubrirás una forma más justa de hablarte.',['✨ Comenzar','⏳ Volver más tarde'])}
-$('send').onclick=()=>{let t=txt.value.trim();if(t){txt.value='';handle(t)}};txt.addEventListener('keydown',e=>{if(e.key==='Enter')$('send').click()});$('reset').onclick=resetAll;$('save').onclick=()=>save(true);$('clear').onclick=()=>{localStorage.removeItem('miYoInteriorCap2V5GuionCorregido');modal('Datos borrados','Se eliminó el progreso guardado en este dispositivo.',[['Aceptar',closeModal,'primary']])};$('amb').onclick=ambient;$('voice').onclick=voice;$('theme').onclick=theme;$('speed').onclick=speed;
+$('send').onclick=()=>{let t=txt.value.trim();if(t){txt.value='';handle(t)}};txt.addEventListener('keydown',e=>{if(e.key==='Enter')$('send').click()});$('reset').onclick=resetAll;$('save').onclick=()=>save(true);$('clear').onclick=()=>{localStorage.removeItem('miYoInteriorCap2V6PalabrasQueTeConstruyen');modal('Datos borrados','Se eliminó el progreso guardado en este dispositivo.',[['Aceptar',closeModal,'primary']])};$('amb').onclick=ambient;$('voice').onclick=voice;$('theme').onclick=theme;$('speed').onclick=speed;
 window.onload=()=>{setTimeout(()=>{let s=load();if(s&&s.history&&s.history.length>2){modal('Encontré un progreso previo','Hay una experiencia guardada de este capítulo. Puedes continuar o iniciar nuevamente.',[['Iniciar de nuevo',()=>{closeModal();resetAll()},'secondary'],['Continuar',()=>{closeModal();st=s;msgs.innerHTML='';st.history.forEach(m=>add(m.text,m.who,m.extra||''));ai('Continuamos desde tu experiencia guardada. Puedes guardar tu frase, descargar tu tarjeta visual o transformar otra frase.',['💾 Guardar mi nueva frase','🖼️ Descargar tarjeta visual PNG','🔄 Transformar otra frase'])},'primary']])}else start()},300)};
 </script>
 </body>
