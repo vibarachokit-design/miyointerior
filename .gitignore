@@ -1,8 +1,0 @@
-node_modules/
-.env
-.env.local
-.vercel/
-.netlify/
-.wrangler/
-.DS_Store
-*.log
