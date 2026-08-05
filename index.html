@@ -1,50 +1,708 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>Mi Yo Interior — V4 Autoajuste y Lectura Pausada</title>
-<style>
-:root{--bg1:#120d0a;--bg2:#2d2117;--bg3:#4b3421;--paper:#fffaf3;--paper2:#f4ece0;--ink:#2c2017;--muted:#8b7762;--gold:#dac5a6;--gold2:#b89b70;--safe:#5fab73;--shadow:0 45px 95px rgba(0,0,0,.58)}
-*{margin:0;padding:0;box-sizing:border-box}html,body{height:100%;width:100%}body{font-family:'Segoe UI',Tahoma,Verdana,sans-serif;background:radial-gradient(circle at 50% 28%,rgba(218,197,166,.18),transparent 31%),linear-gradient(145deg,var(--bg1),var(--bg2) 50%,var(--bg3));min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:max(10px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left));overflow:hidden;color:var(--ink)}
-.bg{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}.p{position:absolute;bottom:-30px;border-radius:50%;background:rgba(255,239,211,.14);animation:rise 24s linear infinite}.p:nth-child(1){left:7%;width:4px;height:4px}.p:nth-child(2){left:16%;width:7px;height:7px;animation-delay:2s}.p:nth-child(3){left:28%;width:3px;height:3px;animation-delay:4s}.p:nth-child(4){left:41%;width:6px;height:6px;animation-delay:8s}.p:nth-child(5){left:58%;width:5px;height:5px;animation-delay:3s}.p:nth-child(6){left:72%;width:8px;height:8px;animation-delay:6s}.p:nth-child(7){left:84%;width:4px;height:4px;animation-delay:10s}.p:nth-child(8){left:93%;width:6px;height:6px;animation-delay:12s}@keyframes rise{0%{transform:translateY(0) scale(.25);opacity:0}12%{opacity:1}88%{opacity:.8}100%{transform:translateY(-110vh) scale(1.25);opacity:0}}
-.wrap{position:relative;z-index:1;width:100%;max-width:min(96vw,980px);height:min(96dvh,940px);display:flex;align-items:center;justify-content:center}.window{width:0;height:0;background:rgba(255,250,243,.985);backdrop-filter:blur(20px);border-radius:38px;box-shadow:var(--shadow),0 0 0 1px rgba(218,197,166,.28);overflow:hidden;display:flex;flex-direction:column;position:relative;max-height:100%;min-height:0}.window.open{animation:open 1.55s cubic-bezier(.34,1.56,.64,1) forwards}@keyframes open{0%{width:0;height:0;opacity:0;transform:scale(.2) rotate(-2deg);border-radius:80px}48%{opacity:1}100%{width:100%;height:100%;opacity:1;transform:scale(1) rotate(0);border-radius:34px}}
-.header{padding:15px 18px 12px;border-bottom:1px solid rgba(218,197,166,.35);display:flex;align-items:center;gap:12px;flex-shrink:0;background:rgba(255,250,243,.82);opacity:0;animation:fade .8s ease forwards;animation-delay:1.15s}.avatar{width:50px;height:50px;border-radius:50%;background:radial-gradient(circle at 38% 32%,#fff7e6,#ddc7a6 44%,#8f6b43);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 0 25px rgba(218,197,166,.7),inset 0 0 15px rgba(255,255,255,.74);animation:breathe 4s ease-in-out infinite;position:relative;flex-shrink:0}.avatar.speaking{animation:breathe 1.5s ease-in-out infinite}.avatar:after{content:"";position:absolute;inset:-8px;border-radius:inherit;border:1px solid rgba(218,197,166,.42);animation:ring 4s ease-in-out infinite}@keyframes breathe{0%,100%{transform:scale(.96)}50%{transform:scale(1.07)}}@keyframes ring{0%,100%{opacity:.25;transform:scale(.92)}50%{opacity:.75;transform:scale(1.16)}}.info{flex:1;min-width:0}.info h1{font-size:18px;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.info p{color:var(--muted);font-size:11.6px;margin-top:1px}.status{width:10px;height:10px;border-radius:50%;background:var(--safe);box-shadow:0 0 14px rgba(95,171,115,.55);flex-shrink:0;animation:pulse 2s infinite}@keyframes pulse{50%{opacity:.45;transform:scale(.85)}}.tools{display:flex;gap:6px}.tool{width:34px;height:34px;border-radius:50%;border:1px solid rgba(218,197,166,.45);background:rgba(244,236,224,.92);cursor:pointer;font-size:15px;color:var(--ink);transition:.2s}.tool:hover{background:#eadcc8;transform:translateY(-1px)}.progress{height:4px;background:#eadfce;flex-shrink:0}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--gold2),var(--gold));transition:width .55s ease}.messages{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:clamp(12px,2vw,22px) clamp(14px,2.4vw,30px) clamp(90px,11vh,140px);display:flex;flex-direction:column;gap:clamp(10px,1.4vw,14px);opacity:0;animation:fade .8s ease forwards;animation-delay:1.3s;scroll-behavior:smooth}.messages::-webkit-scrollbar{width:5px}.messages::-webkit-scrollbar-thumb{background:var(--gold);border-radius:10px}.msg{max-width:min(98%,860px);width:auto;padding:clamp(11px,1.8vw,16px) clamp(14px,2vw,20px);border-radius:19px;font-size:clamp(14px,1.7vw,17px);line-height:1.9;letter-spacing:.05px;white-space:normal;word-wrap:break-word;overflow-wrap:anywhere;hyphens:auto;animation:msg .32s ease forwards;opacity:0;transform:translateY(6px)}.agent{background:var(--paper2);align-self:flex-start;border-bottom-left-radius:5px;box-shadow:0 4px 13px rgba(45,31,20,.05)}.user{background:var(--gold);align-self:flex-end;border-bottom-right-radius:5px;color:#1b130d}.system{background:#fff2d8;border:1px solid rgba(218,197,166,.55);align-self:center;text-align:center;font-size:12.4px;color:#5c4934;line-height:1.55}.msg strong{color:#5e4933}.typing{display:flex;gap:5px;padding:14px 18px}.typing span{width:8px;height:8px;background:#b89b70;border-radius:50%;animation:t 1.2s infinite}.typing span:nth-child(2){animation-delay:.18s}.typing span:nth-child(3){animation-delay:.36s}@keyframes t{30%{transform:translateY(-6px)}}@keyframes msg{to{opacity:1;transform:translateY(0)}}@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}.options{padding:8px 18px 10px;flex-shrink:0;opacity:0;animation:fade .7s ease forwards;animation-delay:1.5s}.grid{display:none;flex-wrap:wrap;gap:7px;justify-content:center}.grid.show{display:flex}.opt{background:rgba(244,236,224,.95);border:1.4px solid var(--gold);border-radius:999px;padding:8px 13px;color:#392a1c;font-family:inherit;font-weight:650;font-size:12.8px;cursor:pointer;transition:.23s}.opt:hover{background:var(--gold);transform:translateY(-2px);box-shadow:0 8px 20px rgba(184,155,112,.22)}.input{padding:0 18px 12px;flex-shrink:0;opacity:0;animation:fade .7s ease forwards;animation-delay:1.65s}.row{display:none;gap:8px;align-items:center;background:var(--paper2);border:1.4px solid transparent;border-radius:25px;padding:4px}.row.show{display:flex}.row:focus-within{border-color:var(--gold)}input{flex:1;min-width:0;background:transparent;border:none;outline:none;padding:11px 12px;color:var(--ink);font-size:14px}input::placeholder{color:#a9957d}.send{border:none;border-radius:21px;background:var(--gold);color:#2d1f12;font-weight:750;padding:10px 16px;cursor:pointer}.send:hover{background:#ccb38d}.safe{font-size:11.4px;color:#8a7159;line-height:1.45;text-align:center;padding:0 18px 9px;flex-shrink:0}.footer{padding:0 18px 12px;display:flex;gap:8px;justify-content:center;flex-shrink:0}.mini{border:none;background:transparent;color:#9b856e;font-size:12px;cursor:pointer;padding:5px 7px}.mini:hover{color:#6d563f}.modal{position:fixed;inset:0;background:rgba(0,0,0,.52);display:none;align-items:center;justify-content:center;z-index:9;padding:18px}.modal.show{display:flex}.card{width:min(520px,100%);background:var(--paper);border-radius:24px;padding:22px;box-shadow:var(--shadow)}.card h2{font-size:20px;margin-bottom:10px}.card p{font-size:14px;line-height:1.65;color:#4d3a28}.actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}.primary,.secondary{border:none;border-radius:14px;padding:10px 14px;cursor:pointer}.primary{background:var(--gold);font-weight:750}.secondary{background:#efe3d1}
-@media(max-width:540px){body{padding:0}.wrap{height:100dvh;max-width:100%;width:100%}.window,.window.open{border-radius:0}.header{padding:calc(12px + env(safe-area-inset-top)) 14px 10px}.messages{padding:12px 14px calc(98px + env(safe-area-inset-bottom));gap:10px}.msg{font-size:14.6px;max-width:99%;line-height:1.88}.options{padding:7px 14px}.input{padding:0 14px 10px}.opt{font-size:12.1px;padding:7px 11px}.footer{padding:0 14px calc(10px + env(safe-area-inset-bottom))}.tool{width:31px;height:31px}.safe{font-size:10.8px}}
-@media(min-width:760px){.wrap{max-width:min(94vw,900px);height:min(94dvh,920px)}.msg{font-size:clamp(15.5px,1.55vw,17px)}.messages{padding-left:clamp(24px,4vw,42px);padding-right:clamp(24px,4vw,42px)}.options,.input,.footer,.safe{padding-left:clamp(24px,4vw,42px);padding-right:clamp(24px,4vw,42px)}}
-@media(min-width:1100px){.wrap{max-width:1040px;height:min(92dvh,960px)}.msg{max-width:min(88%,900px);font-size:17px}.agent{max-width:min(86%,900px)}.user{max-width:min(74%,780px)}}
-@media(max-height:640px){.header{padding-top:10px;padding-bottom:8px}.avatar{width:42px;height:42px}.messages{padding-bottom:72px}.safe{display:none}.footer{padding-bottom:8px}.msg{line-height:1.72}}
-@media(orientation:landscape) and (max-height:520px){.wrap{height:100dvh;max-width:100vw}.window,.window.open{border-radius:0}.header{padding:8px 12px}.messages{padding:8px 14px 70px}.msg{font-size:13.3px;line-height:1.62}.safe{display:none}.footer{padding-bottom:6px}.options{padding:5px 12px}.input{padding:0 12px 6px}.avatar{width:38px;height:38px}}
-@media print{body{background:#fff}.bg,.header,.progress,.options,.input,.footer,.safe{display:none}.window,.window.open{width:100%;height:auto;box-shadow:none}.messages{overflow:visible;padding:0}.msg{break-inside:avoid}}
-</style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Mi Yo Interior · El camino de regreso a tu voz interior</title>
+    <link rel="icon" href="assets/images/icons/favicon.ico" type="image/x-icon" />
+    <style>
+        /* ---- RESET & BASE ---- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Tahoma, Verdana, sans-serif;
+            background: #f8f5f0;
+            color: #1f2b27;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ---- HEADER / HERO ---- */
+        .hero {
+            text-align: center;
+            padding: 50px 20px 40px;
+            border-bottom: 2px solid #e8e0d6;
+            position: relative;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #d7bd8a;
+            color: #1f2b27;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 20px 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 18px;
+        }
+
+        .hero-tag img {
+            height: 22px;
+            width: auto;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 300;
+            letter-spacing: -1px;
+            color: #1f2b27;
+            line-height: 1.2;
+        }
+
+        .hero h1 strong {
+            font-weight: 700;
+            color: #2f6f73;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            color: #6f8179;
+            max-width: 560px;
+            margin: 12px auto 8px;
+            font-weight: 300;
+        }
+
+        .hero .badge {
+            display: inline-block;
+            background: #eef4ed;
+            color: #2f6f73;
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 14px;
+            border: 1px solid #d6e3d1;
+        }
+
+        .hero .badge span {
+            font-weight: 300;
+            color: #6f8179;
+        }
+
+        /* ---- PORTADA IMAGEN ---- */
+        .cover-area {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0 10px;
+        }
+
+        .cover-area img {
+            max-width: 280px;
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+            border: 1px solid #e8e0d6;
+        }
+
+        /* ---- FLOW STEPS ---- */
+        .flow {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px 28px;
+            padding: 28px 0 10px;
+            border-bottom: 2px solid #e8e0d6;
+            margin-bottom: 10px;
+        }
+
+        .flow-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #6f8179;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .flow-item .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #d7bd8a;
+            display: inline-block;
+        }
+
+        /* ---- CHAPTERS SECTION ---- */
+        .chapters-section {
+            padding: 40px 0 60px;
+        }
+
+        .chapters-section .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .chapters-section .section-header h2 {
+            font-size: 2rem;
+            font-weight: 300;
+            color: #1f2b27;
+        }
+
+        .chapters-section .section-header p {
+            color: #6f8179;
+            font-size: 1.05rem;
+        }
+
+        /* ---- CHAPTER GRID ---- */
+        .chapter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 28px;
+        }
+
+        /* ---- CHAPTER CARD ---- */
+        .chapter-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 24px 22px 28px;
+            border: 1px solid #e8e0d6;
+            transition: box-shadow 0.3s, transform 0.25s;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .chapter-card:hover:not(.locked) {
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.07);
+            transform: translateY(-4px);
+        }
+
+        .chapter-card.locked {
+            opacity: 0.55;
+            filter: grayscale(0.3);
+            cursor: not-allowed;
+        }
+
+        .chapter-card.locked .btn-chapter {
+            background: #e8e0d6;
+            color: #9a8c7e;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* ---- CHAPTER IMAGE ---- */
+        .chapter-image {
+            width: 100%;
+            height: 140px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            background: #f4f8f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid #e8e0d6;
+        }
+
+        .chapter-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .chapter-image .placeholder {
+            font-size: 3rem;
+            color: #d7bd8a;
+            font-weight: 300;
+            opacity: 0.5;
+        }
+
+        /* ---- CARD CONTENT ---- */
+        .chapter-card .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .chapter-card .num {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: #6f8179;
+        }
+
+        .chapter-card .status {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 3px 14px;
+            border-radius: 20px;
+            background: #eef4ed;
+            color: #6f8179;
+        }
+
+        .chapter-card .status.done {
+            background: #d7bd8a;
+            color: #1f2b27;
+        }
+
+        .chapter-card .status.locked-status {
+            background: #e8e0d6;
+            color: #9a8c7e;
+        }
+
+        .chapter-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1f2b27;
+            margin: 4px 0 6px;
+        }
+
+        .chapter-card .desc {
+            font-size: 0.9rem;
+            color: #6f8179;
+            margin: 4px 0 18px;
+            flex: 1;
+        }
+
+        .chapter-card .btn-chapter {
+            display: inline-block;
+            background: #eef4ed;
+            color: #1f2b27;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-decoration: none;
+            text-align: center;
+            transition: background 0.25s;
+            border: 1px solid #d6e3d1;
+            align-self: flex-start;
+            width: 100%;
+            text-align: center;
+        }
+
+        .chapter-card .btn-chapter:hover:not(.locked) {
+            background: #d7bd8a;
+            border-color: #d7bd8a;
+        }
+
+        .chapter-card .btn-chapter.continue {
+            background: #d7bd8a;
+            border-color: #d7bd8a;
+        }
+
+        .chapter-card .btn-chapter.continue:hover {
+            background: #c4a97a;
+        }
+
+        .chapter-card .lock-icon {
+            font-size: 1.2rem;
+            margin-right: 6px;
+        }
+
+        /* ---- ABOUT / INFO ---- */
+        .info-section {
+            background: #f4f8f2;
+            border-radius: 24px;
+            padding: 40px 36px;
+            margin: 10px 0 50px;
+            border: 1px solid #d6e3d1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .info-section h2 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 8px;
+        }
+
+        .info-section p {
+            color: #3d544c;
+        }
+
+        .info-section .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 28px;
+            margin: 14px 0 8px;
+        }
+
+        .info-section .features span {
+            font-size: 0.95rem;
+        }
+
+        .info-section .small {
+            font-size: 0.82rem;
+            color: #6f8179;
+            margin-top: 16px;
+            border-top: 1px solid #d6e3d1;
+            padding-top: 16px;
+        }
+
+        .info-section .col-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .info-section .col-right .highlight {
+            font-size: 2.8rem;
+            font-weight: 300;
+            color: #2f6f73;
+            line-height: 1.2;
+        }
+
+        .info-section .col-right .highlight strong {
+            font-weight: 700;
+        }
+
+        /* ---- FOOTER ---- */
+        .footer {
+            text-align: center;
+            padding: 30px 0 24px;
+            border-top: 1px solid #e8e0d6;
+            color: #6f8179;
+            font-size: 0.85rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px 28px;
+        }
+
+        .footer a {
+            color: #2f6f73;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ---- RESPONSIVE ---- */
+        @media (max-width: 820px) {
+            .info-section {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .chapter-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.05rem;
+            }
+
+            .flow {
+                gap: 8px 16px;
+            }
+
+            .flow-item {
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .chapter-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 0 14px;
+            }
+
+            .hero {
+                padding: 30px 10px 20px;
+            }
+
+            .hero h1 {
+                font-size: 1.7rem;
+            }
+
+            .info-section {
+                padding: 24px 18px;
+            }
+
+            .info-section .col-right .highlight {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="bg"><div class="p"></div><div class="p"></div><div class="p"></div><div class="p"></div><div class="p"></div><div class="p"></div><div class="p"></div><div class="p"></div></div>
-<div class="wrap"><main class="window" id="window"><header class="header"><div class="avatar" id="avatar">🌿</div><div class="info"><h1>Mi Yo Interior</h1><p>Capítulo 1 · Entregar la carga</p></div><div class="tools"><button class="tool" id="voice" title="Voz">🔈</button><button class="tool" id="amb" title="Ambiente">♪</button><button class="tool" id="theme" title="Tema">◐</button><button class="tool" id="speed" title="Velocidad de lectura">🐢</button></div><div class="status"></div></header><div class="progress"><div class="bar" id="bar"></div></div><section class="messages" id="messages"></section><section class="options"><div class="grid" id="grid"></div></section><section class="input"><div class="row" id="row"><input id="txt" type="text" placeholder="Escribe aquí..."/><button class="send" id="send">Enviar</button></div></section><p class="safe">Experiencia reflexiva y educativa. No reemplaza atención psicológica, médica, legal o financiera profesional.</p><footer class="footer"><button class="mini" id="reset">↺ Reiniciar</button><button class="mini" id="save">💾 Guardar</button><button class="mini" id="clear">🧹 Borrar</button></footer></main></div>
-<div class="modal" id="modal"><div class="card"><h2 id="mt"></h2><p id="mb"></p><div class="actions" id="ma"></div></div></div>
-<script>
-const $=id=>document.getElementById(id),msg=$('messages'),grid=$('grid'),row=$('row'),txt=$('txt'),bar=$('bar'),avatar=$('avatar');
-const state={step:'welcome',name:'',carga:'',detalle:'',emocion:'',rutaResp:'',noControl:'',siControl:'',afirmacion:'',paso:'',momento:'',history:[],voice:false,ambient:false,dark:false,readSlow:true};
-const STEPS=['welcome','name','presentation','carga','emocion','pausa','ruta','profundizar','entrega','afirmacion','paso','momento','cierre'];
-const CARGAS=['💰 Preocupación económica o financiera','😤 Resentimiento o conflicto con alguien','🌪️ Miedo al futuro o a un cambio','⚖️ Una decisión que no logro tomar','🌀 Algo que está fuera de mi control','📝 Otra situación'];
-const EMOCIONES=['Miedo','Enojo','Culpa','Tristeza','Inseguridad','Cansancio','Confusión','Frustración','No sé cómo nombrarlo','Otra emoción'];
-const AFIRMACIONES=['Entrego lo que no puedo controlar y actúo sobre lo que sí depende de mí.','No necesito resolverlo todo en este instante.','Puedo avanzar paso a paso.','Suelto la urgencia y me abro a la claridad.','Puedo actuar con responsabilidad sin dejarme dirigir por el miedo.','Quiero escribir mi propia afirmación.'];
-const RISK=['suicidio','suicidarme','matarme','hacerme daño','no quiero vivir','autolesión','autolesion','abuso','violencia','emergencia','amenaza','peligro inmediato'];
-function clean(t){return String(t||'').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\*(.*?)\*/g,'<em>$1</em>').replace(/\n/g,'<br>')}function progress(){let i=STEPS.indexOf(state.step);bar.style.width=Math.max(0,Math.round((i/(STEPS.length-1))*100))+'%'}function scrollEnd(){requestAnimationFrame(()=>setTimeout(()=>msg.scrollTo({top:msg.scrollHeight,behavior:'smooth'}),100))}function add(text,who='agent',typing=false){let d=document.createElement('div');d.className='msg '+who;if(typing){d.classList.add('typing');d.innerHTML='<span></span><span></span><span></span>'}else{d.innerHTML=clean(text);state.history.push({who,text,at:new Date().toISOString()})}msg.appendChild(d);scrollEnd();return d}
-function speak(text){if(!state.voice||!('speechSynthesis' in window))return;window.speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(text.replace(/[\*#•]/g,''));u.lang='es-CL';u.rate=.82;u.pitch=1;window.speechSynthesis.speak(u)}function setOptions(opts=[]){grid.innerHTML='';if(!opts.length){grid.classList.remove('show');return}grid.classList.add('show');opts.forEach(o=>{let b=document.createElement('button');b.className='opt';b.textContent=o;b.onclick=()=>handle(o);grid.appendChild(b)})}function showInput(show,ph='Escribe aquí...'){row.classList.toggle('show',!!show);txt.placeholder=ph;if(show)setTimeout(()=>txt.focus(),70)}function splitText(text){return String(text).split(/\n\n+/).map(x=>x.trim()).filter(Boolean)}function wait(ms){return new Promise(r=>setTimeout(r,ms))}function readPause(text){const words=String(text||'').trim().split(/\s+/).filter(Boolean).length;return state.readSlow?Math.min(11000,Math.max(3200,words*310)):Math.min(7000,Math.max(1600,words*170))}
-async function agent(text,opts=[],input=false,ph='Escribe aquí...'){setOptions([]);showInput(false);progress();avatar.classList.add('speaking');let parts=splitText(text);for(let i=0;i<parts.length;i++){let t=add('', 'agent', true);await wait(Math.min(1500,700+parts[i].length*4));t.remove();let bubble=add('', 'agent');await typeInto(bubble,parts[i]);speak(parts[i]);await wait(readPause(parts[i]))}avatar.classList.remove('speaking');setOptions(opts);showInput(input,ph);save(false)}async function typeInto(el,text){let raw=text,out='';el.innerHTML='';for(let i=0;i<raw.length;i++){out+=raw[i];el.innerHTML=clean(out);if(i%3===0)scrollEnd();await wait(state.readSlow?(raw[i]==='.'?330:(raw[i]==='?'?460:(raw[i]==='!'?400:(raw[i]===','?150:24)))):(raw[i]==='.'?170:(raw[i]==='?'?260:(raw[i]==='!'?230:(raw[i]===','?80:10)))))}el.innerHTML=clean(text);scrollEnd()}
-function handle(text){if(text.includes('Reiniciar')||text.includes('Volver al inicio'))return resetAll();add(text,'user');if(detectRisk(text))return;process(text.trim())}function detectRisk(t){let x=t.toLowerCase();if(RISK.some(r=>x.includes(r))){state.step='safety';agent('Lo que estás expresando merece apoyo humano inmediato. Este acompañamiento digital no puede resolver emergencias ni reemplazar ayuda profesional. Si estás en peligro o puedes hacerte daño, busca ahora una persona adulta de confianza, un profesional de salud o el servicio de emergencia de tu ubicación.\n\nPodemos detener el ejercicio aquí para priorizar tu seguridad.',['🌿 Volver al inicio']);return true}return false}
-function process(t){switch(state.step){case'welcome':state.step='name';agent('Antes de comenzar...\n\n¿Cómo te gustaría que te llamara?',[],true,'Escribe tu nombre o apodo...');break;case'name':state.name=t;state.step='presentation';agent(`Hola ${state.name}. Soy **Mi Yo Interior**, el acompañante digital de este libro.\n\nNo estoy aquí para decirte qué debes sentir ni para decidir por ti. Estoy aquí para ayudarte a hacer una pausa, ordenar lo que estás viviendo y escuchar con mayor claridad tus propias respuestas.\n\nComparte solamente aquello con lo que te sientas cómodo. Cuando estés preparado, presiona continuar.`,['✅ Estoy preparado']);break;case'presentation':state.step='carga';agent('En el capítulo identificaste una carga: una situación, preocupación o pensamiento que ha estado ocupando demasiado espacio en tu mente.\n\n¿Qué tipo de carga estás sosteniendo hoy?',CARGAS);break;case'carga':state.carga=t;if(t.includes('Otra')){state.step='detalle';agent('Puedes describirla en una frase. No necesitas entregar detalles personales.\n\n**La situación que me preocupa es...**',[],true,'Describe brevemente tu situación...')}else{state.step='emocion';agent('Gracias por reconocerlo.\n\nAhora observa qué ocurre dentro de ti cuando piensas en esta situación.\n\n¿Cuál de estas emociones se acerca más a lo que estás sintiendo?',EMOCIONES)}break;case'detalle':state.detalle=t;state.step='emocion';agent('Gracias por ponerlo en palabras.\n\n¿Cuál de estas emociones se acerca más a lo que estás sintiendo?',EMOCIONES);break;case'emocion':state.emocion=t;state.step='pausa';agent(`Tiene sentido que esta situación produzca **${state.emocion}**.\n\nNo necesitas eliminar esa emoción ahora. Por un momento, solo vamos a reconocer que está presente.\n\nUna emoción puede entregarnos información, pero no tiene que tomar todas nuestras decisiones.`,['🌿 Hacer una pausa']);break;case'pausa':state.step='ruta';agent('Si te resulta cómodo, apoya ambos pies en el suelo. Relaja suavemente los hombros.\n\n**Inhala** lentamente mientras cuentas: uno, dos, tres, cuatro. Haz una pausa breve.\n\n**Exhala** con suavidad: uno, dos, tres, cuatro, cinco, seis.\n\nRepetiremos una vez más.\n\nMientras respiras, recuerda: **en este momento no necesitas resolverlo todo**. Solo estás creando un poco de espacio para observar la situación con mayor claridad.',['✅ Continuar']);break;case'ruta':routeIntro();break;case'profundizar':routeNext(t);break;case'entrega':if(!state.paso)state.paso=t;state.step='afirmacion';agent('Ahora que has observado tu situación, realizaremos el acto simbólico de **entregar la carga**.\n\nImagina nuevamente que la preocupación tiene un peso. Frente a ti existe un lugar seguro donde puedes depositarla. Puede representar a Dios, Cristo, la vida, tu fe, tu sabiduría interior o simplemente la decisión de no continuar sosteniendo todo al mismo tiempo.\n\nCuando estés preparado, repite: **Reconozco esta carga. Entrego aquello que no puedo controlar. Conservo la responsabilidad que me corresponde y me abro a recibir claridad para avanzar.**\n\nNo importa si la preocupación no desaparece completamente. Hoy has decidido relacionarte con ella de una manera diferente.',['✅ He entregado mi carga']);break;case'afirmacion':state.step='afirmacionElegir';agent('Tu afirmación debe sentirse posible y honesta. No necesita afirmar que todo está bien si todavía no lo sientes.\n\nElige la frase que mejor te acompañe hoy.',AFIRMACIONES);break;case'afirmacionElegir':if(t.includes('propia afirmación')){state.step='afirmacionCustom';agent('Escribe tu afirmación. Yo puedo ayudarte a dejarla en una forma amable, realista y positiva.',[],true,'Mi afirmación es...')}else{state.afirmacion=t;state.step='paso';agent(`Tu afirmación es:\n\n*${state.afirmacion}*\n\nLa reflexión se vuelve más poderosa cuando se transforma en una acción.\n\n¿Cuál será tu próximo paso durante las siguientes 24 horas?`,[],true,'Escribe tu próximo paso...')}break;case'afirmacionCustom':state.afirmacion=reform(t);state.step='paso';agent(`He dejado tu afirmación en una forma amable y realista:\n\n*${state.afirmacion}*\n\n¿Cuál será tu próximo paso durante las siguientes 24 horas?`,[],true,'Escribe tu próximo paso...');break;case'paso':state.paso=t;state.step='momento';agent(`Tu próximo paso es:\n\n*${state.paso}*\n\n¿Cuándo lo realizarás?`,['Esta mañana','Esta tarde','Esta noche','Mañana','En una fecha específica']);break;case'momento':state.momento=t;state.step='cierre';closing();break;case'cierre':if(t.includes('Guardar'))downloadText();else if(t.includes('Repetir'))resetAll();else if(t.includes('pausa')){state.step='pausa';process('x')}else agent('Puedes elegir una de las opciones finales.',['📖 Volver al libro','💾 Guardar mi recordatorio','🔄 Repetir la experiencia','🎧 Escuchar nuevamente la pausa guiada']);break;default:resetAll()}}
-function routeIntro(){state.step='profundizar';let c=state.carga;if(c.includes('económica'))agent('Las preocupaciones económicas pueden hacer que la mente intente resolver muchas situaciones al mismo tiempo. Cuando eso sucede, todo parece urgente.\n\nNo vamos a negar el problema ni a imaginar que desaparecerá por sí solo. Vamos a separar la preocupación de la acción.\n\n¿Qué parte de esta situación te preocupa más?',['No saber si el dinero alcanzará','Tener una deuda o un pago pendiente','No saber cómo generar más ingresos','Haber tenido un gasto inesperado','Sentir desorden o falta de control','Otra preocupación']);else if(c.includes('Resentimiento'))agent('Cuando una conversación o una experiencia dolorosa se repite en nuestra mente, una parte de nuestra energía permanece atrapada en lo ocurrido.\n\nSoltar no significa justificar, olvidar ni permitir nuevamente aquello que te hizo daño. Tampoco significa que debas reconciliarte con alguien.\n\n¿Qué necesitas principalmente frente a esta situación?',['Expresar algo que he guardado','Establecer un límite','Dejar de repetir la conversación en mi mente','Comprender mejor lo que siento','Tomar distancia','Todavía no lo sé']);else if(c.includes('Miedo'))agent('El futuro contiene preguntas que todavía no tienen respuesta. Cuando sentimos miedo, la mente puede convertir una posibilidad en una certeza.\n\nVolvamos por un momento al presente.\n\n¿Qué aspecto del cambio te produce mayor inquietud?',['No saber qué ocurrirá','Equivocarme','Perder algo importante','No sentirme preparado','Decepcionar a alguien','Tener que comenzar nuevamente','Otro temor']);else if(c.includes('decisión'))agent('A veces no postergamos una decisión porque seamos incapaces de elegir, sino porque esperamos sentir una seguridad absoluta.\n\nVamos a observar tus opciones sin obligarte a resolverlas inmediatamente.\n\n¿Cuál es la decisión que necesitas tomar?',[],true,'Describe la decisión...');else if(c.includes('fuera'))agent('Hay situaciones que nos afectan profundamente, aunque no podamos dirigirlas. Aceptar que algo está fuera de nuestro control no significa aprobarlo ni dejar de sentir.\n\n¿Qué has estado intentando controlar?',['La decisión de otra persona','La opinión que alguien tiene de mí','Algo que ya ocurrió','Una respuesta que todavía no llega','Un resultado futuro','El comportamiento de alguien','Otra situación']);else agent('Aunque tu situación no aparezca entre las opciones anteriores, podemos observarla mediante tres preguntas.\n\n¿Qué parte de esta situación está produciendo mayor peso en ti?',[],true,'Describe lo que pesa más...')}
-function routeNext(t){state.rutaResp=t;let c=state.carga;if(c.includes('económica')){state.step='money1';agent('Gracias. Ahora completa esta frase:\n\n**Lo que hoy no puedo controlar completamente es...**',[],true,'Escribe lo que no puedes controlar...')}else if(c.includes('Resentimiento')){state.step='entrega';agent('Imagina que entre tú y esa persona existe una cuerda que representa palabras, preguntas, enojo o expectativas. No necesitas acercarte ni hablar con ella ahora.\n\nSolo imagina que aflojas tu extremo de la cuerda.\n\nRepite interiormente: **No justifico lo que me hizo daño. Hoy dejo de sostenerlo de la misma manera. Recupero mi energía y protejo mi paz.**\n\n¿Qué acción respetuosa contigo podría ayudarte?',['Escribir lo que siento sin enviarlo','Definir un límite','Darme tiempo antes de responder','Conversar cuando me sienta preparado','Buscar apoyo en una persona de confianza','No realizar ninguna acción por ahora'])}else if(c.includes('Miedo')){state.step='entrega';agent('Mira a tu alrededor y reconoce silenciosamente tres cosas que puedes ver, dos sonidos que puedes escuchar y una parte de tu cuerpo que se encuentra apoyada.\n\nAhora repite: **En este momento estoy aquí. El futuro todavía no ha ocurrido. Puedo prepararme sin vivir anticipadamente todos los resultados posibles.**\n\n¿Qué podría ayudarte a sentir un poco más de preparación?',['Buscar información confiable','Organizar un primer paso','Pedir ayuda o consejo','Preparar un plan alternativo','Darme tiempo para adaptarme','Escribir mi propia acción'])}else if(c.includes('decisión')){state.step='decision2';agent('Gracias. ¿Qué opción te produce más calma cuando piensas en ella, aunque también te dé miedo?',[],true,'Escribe la opción...')}else if(c.includes('fuera')){state.step='entrega';agent('Si te resulta cómodo, abre ambas manos. En una coloca aquello que no depende de ti. En la otra, lo que sí puedes elegir: tu respuesta, tus palabras, tus límites, tu tiempo o tu próximo paso.\n\nRepite: **Libero aquello que no puedo dirigir. Conservo mi capacidad de elegir cómo responder.**\n\n¿Qué acción pequeña y concreta puedes realizar?',['Identificar lo que sí puedo elegir','Escribir mis límites','Definir mi respuesta','Cuidar mi energía','Buscar apoyo','Soltar lo que no depende de mí'])}else{state.noControl=t;state.step='otra2';agent('¿Qué elemento no depende completamente de ti?',[],true,'Escribe lo que no depende de ti...')}}
-const oldProcess=process;process=function(t){if(state.step==='money1'){state.noControl=t;state.step='money2';agent('**Lo que sí puedo revisar, preguntar, ordenar o realizar es...**',[],true,'Escribe lo que sí puedes hacer...');return}if(state.step==='money2'){state.siControl=t;state.step='entrega';agent('Observa la diferencia. No necesitas resolver hoy toda tu situación financiera. Puedes comenzar por una acción concreta.\n\n¿Qué acción pequeña puedes realizar durante las próximas 24 horas?',['Revisar mis ingresos y compromisos','Ordenar mis fechas de pago','Solicitar información','Conversar con una persona relacionada','Buscar orientación profesional','Escribir mi propia acción']);return}if(state.step==='decision2'){state.siControl=t;state.step='decision3';agent('¿Qué estás intentando proteger al no decidir?',['Mi seguridad','La opinión de otras personas','Una relación','Mi estabilidad económica','Mi imagen o reputación','La posibilidad de equivocarme','Otra cosa']);return}if(state.step==='decision3'){state.noControl=t;state.step='entrega';agent('No decidir también puede mantenerte temporalmente a salvo de la incomodidad. Reconocerlo no significa juzgarte.\n\nSi no tuvieras que complacer a nadie y pudieras actuar de acuerdo con tus valores, ¿qué acción posible te gustaría tomar?',['Reunir la información que falta','Escribir ventajas y riesgos','Establecer una fecha para decidir','Conversar con una persona objetiva','Probar una versión pequeña antes de comprometerme','Darme un periodo definido para reflexionar']);return}if(state.step==='otra2'){state.noControl=t;state.step='otra3';agent('¿Qué acción o decisión sí se encuentra a tu alcance?',[],true,'Escribe lo que sí puedes hacer...');return}if(state.step==='otra3'){state.siControl=t;state.step='entrega';agent('No necesitas encontrar una respuesta perfecta. El propósito de esta pausa es reconocer que una parte de la carga puede ser entregada y que otra parte puede transformarse en una acción consciente.\n\n¿Qué acción pequeña puedes realizar?',['Revisar un antecedente','Conversar con alguien','Pedir apoyo','Ordenar mis ideas','Descansar antes de decidir','Escribir mi propia acción']);return}oldProcess(t)}
-function reform(t){let x=t.trim(),l=x.toLowerCase();if(l.includes('dejar de')||l.includes('no pensar')||l.includes('todo saldrá mal'))return 'Aunque no conozco el resultado, puedo prepararme y avanzar con confianza paso a paso.';return /[.!?]$/.test(x)?x:x+'.'}function closing(){let a=state.afirmacion||'Entrego lo que no puedo controlar y actúo sobre lo que sí depende de mí.';agent(`Has llegado al final de esta experiencia.\n\nHoy reconociste una carga, identificaste lo que estabas sintiendo y separaste aquello que puedes atender de lo que no puedes controlar.\n\nTal vez el problema todavía esté presente. Pero ahora no necesitas sostenerlo de la misma manera.\n\n**Tu afirmación es:**\n*${a}*\n\n**Tu próximo paso será:**\n*${state.paso}*\n\n**Lo realizarás:** ${state.momento}\n\nRespira lentamente una vez más. Inhala calma. Exhala tensión.\n\nCuando estés preparado, regresa al libro y completa el cierre del capítulo. Puedes volver a este espacio cada vez que necesites hacer una pausa, pero recuerda: **las decisiones importantes siempre te pertenecen.**`,['📖 Volver al libro','💾 Guardar mi recordatorio','🔄 Repetir la experiencia','🎧 Escuchar nuevamente la pausa guiada'])}
-function reminder(){return `MI RECORDATORIO DE HOY\n\nNombre: ${state.name||''}\nCapítulo: Entregar la carga\n\nLa carga que decido entregar:\n${state.detalle||state.carga||'No especificada'}\n\nEmoción reconocida:\n${state.emocion||'No especificada'}\n\nLo que no depende completamente de mí:\n${state.noControl||'Identificado durante el ejercicio'}\n\nLo que sí depende de mí / próximo paso:\n${state.paso||state.siControl||'No especificado'}\n\nMomento elegido:\n${state.momento||'No especificado'}\n\nMi afirmación:\n${state.afirmacion||'Entrego lo que no puedo controlar y actúo sobre lo que sí depende de mí.'}\n\nNo necesito resolverlo todo hoy. Solo necesito actuar sobre el siguiente paso posible.`}
-function downloadText(){let blob=new Blob([reminder()],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Mi_recordatorio_Capitulo_1.txt';a.click();URL.revokeObjectURL(url);agent('✅ Tu recordatorio se descargó como archivo de texto.',['📖 Volver al libro','🔄 Repetir la experiencia'])}
-function save(show=true){localStorage.setItem('miYoInteriorV4Cap1',JSON.stringify(state));if(show)modal('Progreso guardado','Tu avance quedó guardado en este dispositivo.',[['Aceptar',closeModal,'primary']])}function load(){try{return JSON.parse(localStorage.getItem('miYoInteriorV4Cap1')||'null')}catch(e){return null}}function resetAll(){let v=state.voice,a=state.ambient,d=state.dark,rs=state.readSlow;Object.assign(state,{step:'welcome',name:'',carga:'',detalle:'',emocion:'',rutaResp:'',noControl:'',siControl:'',afirmacion:'',paso:'',momento:'',history:[],voice:v,ambient:a,dark:d,readSlow:rs});msg.innerHTML='';setOptions([]);showInput(false);start()}
-function modal(t,b,acts){$('mt').textContent=t;$('mb').textContent=b;let ma=$('ma');ma.innerHTML='';acts.forEach(([lab,fn,cls])=>{let bt=document.createElement('button');bt.textContent=lab;bt.className=cls==='primary'?'primary':'secondary';bt.onclick=fn;ma.appendChild(bt)});$('modal').classList.add('show')}function closeModal(){$('modal').classList.remove('show')}let audioCtx=null;function ambient(){if(state.ambient){state.ambient=false;$('amb').textContent='♪';if(audioCtx){audioCtx.close();audioCtx=null}return}state.ambient=true;$('amb').textContent='♫';audioCtx=new (window.AudioContext||window.webkitAudioContext)();let osc=audioCtx.createOscillator(),gain=audioCtx.createGain(),filter=audioCtx.createBiquadFilter();osc.type='sine';osc.frequency.value=174;filter.type='lowpass';filter.frequency.value=420;gain.gain.value=.018;osc.connect(filter);filter.connect(gain);gain.connect(audioCtx.destination);osc.start()}function voice(){state.voice=!state.voice;$('voice').textContent=state.voice?'🔊':'🔈';if(!state.voice&&'speechSynthesis'in window)window.speechSynthesis.cancel();save(false)}function theme(){state.dark=!state.dark;document.body.style.filter=state.dark?'brightness(.82) contrast(1.05)':'none';save(false)}function speed(){state.readSlow=!state.readSlow;$('speed').textContent=state.readSlow?'🐢':'🙂';save(false);modal('Velocidad de lectura',state.readSlow?'Modo pausado activado. Las respuestas aparecerán más lentamente para facilitar la lectura.':'Modo normal activado. Las respuestas aparecerán con menor pausa entre bloques.',[['Aceptar',closeModal,'primary']])}
-function start(){progress();add('Esta experiencia ofrece acompañamiento reflexivo y educativo. No reemplaza atención profesional.','system');agent('🌿 **Bienvenido a Mi Yo Interior**\n\nHas llegado desde el capítulo **“Entregar la carga”**.\n\nEste es un espacio de pausa y reflexión. Aquí podrás observar lo que estás sintiendo, soltar por un momento aquello que no puedes controlar y encontrar un próximo paso posible.\n\nNo necesitas tener todas las respuestas. Solo necesitas comenzar con honestidad.',['✨ Comenzar la experiencia','⏳ Prefiero volver más tarde'])}
-$('send').onclick=()=>{let t=txt.value.trim();if(t){txt.value='';handle(t)}};txt.addEventListener('keydown',e=>{if(e.key==='Enter')$('send').click()});$('reset').onclick=resetAll;$('save').onclick=()=>save(true);$('clear').onclick=()=>{localStorage.removeItem('miYoInteriorV4Cap1');modal('Datos borrados','Se eliminó el progreso guardado en este dispositivo.',[['Aceptar',closeModal,'primary']])};$('amb').onclick=ambient;$('voice').onclick=voice;$('theme').onclick=theme;$('speed').onclick=speed;
-window.onload=()=>{setTimeout(()=>$('window').classList.add('open'),360);setTimeout(()=>{let s=load();if(s&&s.history&&s.history.length>2){modal('Encontré un progreso previo','Hay una experiencia guardada de este capítulo. Puedes continuar o iniciar nuevamente.',[['Iniciar de nuevo',()=>{closeModal();resetAll()},'secondary'],['Continuar',()=>{closeModal();Object.assign(state,s);msg.innerHTML='';state.history.forEach(m=>add(m.text,m.who));agent('Continuamos desde tu experiencia guardada. Puedes seguir, guardar tu recordatorio o repetir la experiencia.',['💾 Guardar mi recordatorio','🔄 Repetir la experiencia'])},'primary']])}else start()},1900)};
-</script>
-</body></html>
+
+    <div class="container">
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-tag">
+                <img src="assets/images/icons/logo.svg" alt="Mi Yo Interior" />
+                10 experiencias para escucharte
+            </div>
+            <h1><strong>Mi Yo</strong> Interior</h1>
+            <p class="subtitle">Un recorrido para transformar lo que descubres en decisiones conscientes</p>
+            <div class="badge">📖 Incluye <span>experiencias interactivas</span></div>
+
+            <!-- Portada -->
+            <div class="cover-area">
+                <img src="assets/images/covers/portada.jpg" alt="Portada de Mi Yo Interior - Vibar Achokit" />
+            </div>
+        </section>
+
+        <!-- FLOW -->
+        <div class="flow">
+            <span class="flow-item"><span class="dot"></span> Pausa</span>
+            <span class="flow-item"><span class="dot"></span> Escucha</span>
+            <span class="flow-item"><span class="dot"></span> Comprende</span>
+            <span class="flow-item"><span class="dot"></span> Elige</span>
+            <span class="flow-item"><span class="dot"></span> Avanza</span>
+        </div>
+
+        <!-- CHAPTERS -->
+        <section class="chapters-section" id="capitulos">
+            <div class="section-header">
+                <h2>Capítulos interactivos</h2>
+                <p>Cada capítulo incluye una experiencia conversacional para profundizar lo que descubres en el libro.</p>
+            </div>
+
+            <div class="chapter-grid" id="chapterGrid">
+                <!-- Los capítulos se generarán con JavaScript -->
+            </div>
+        </section>
+
+        <!-- INFO SECTION -->
+        <section class="info-section" id="acerca">
+            <div>
+                <h2>🤍 El acompañante digital</h2>
+                <p>
+                    <strong>Mi Yo Interior</strong> es un asistente conversacional que te acompaña capítulo a capítulo.
+                    No decide por ti. Te hace preguntas, organiza tus respuestas y te devuelve tus propias palabras con mayor claridad.
+                </p>
+                <div class="features">
+                    <span>✅ Conversación personalizada</span>
+                    <span>✅ Ejercicios prácticos</span>
+                    <span>✅ Guarda tu progreso</span>
+                    <span>✅ Descarga tus reflexiones</span>
+                </div>
+                <p class="small">
+                    ⚠️ Esta experiencia es reflexiva y educativa. No reemplaza la atención psicológica, médica, legal o financiera profesional.
+                </p>
+            </div>
+            <div class="col-right">
+                <div class="highlight">
+                    <strong>Vibar</strong> Achokit
+                </div>
+                <p style="color:#6f8179; font-size:0.95rem; margin-top:4px;">Autor de Mi Yo Interior</p>
+                <p style="margin-top:12px; font-size:0.9rem; color:#3d544c;">
+                    "No necesitas convertirte en otra persona. Comienza exactamente donde estás."
+                </p>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <span>© 2026 Vibar AchokiT · Mi Yo Interior</span>
+            <a href="#">Política de privacidad</a>
+            <a href="#">Términos de uso</a>
+        </footer>
+
+    </div>
+
+    <script>
+        // ---- DATOS DE LOS CAPÍTULOS ----
+        const chapters = [{
+            id: 1,
+            title: 'Entregar la carga',
+            desc: 'Reconocer lo que estás sosteniendo y distinguir lo que puedes soltar.',
+            img: 'assets/images/chapters/capitulo-01.jpg',
+            file: 'chapters/capitulo-01.html'
+        }, {
+            id: 2,
+            title: 'Las palabras que te construyen',
+            desc: 'Observar cómo te hablas y transformar frases que te limitan.',
+            img: 'assets/images/chapters/capitulo-02.jpg',
+            file: 'chapters/capitulo-02.html'
+        }, {
+            id: 3,
+            title: 'Escuchar el miedo sin obedecerlo',
+            desc: 'Escuchar la advertencia del miedo sin entregarle la dirección de tu vida.',
+            img: 'assets/images/chapters/capitulo-03.jpg',
+            file: 'chapters/capitulo-03.html'
+        }, {
+            id: 4,
+            title: 'Confiar sin dejar de actuar',
+            desc: 'Hacer tu parte sin exigir garantías sobre el resultado.',
+            img: 'assets/images/chapters/capitulo-04.jpg',
+            file: 'chapters/capitulo-04.html'
+        }, {
+            id: 5,
+            title: 'El valor de elegir',
+            desc: 'Tomar decisiones imperfectas que respeten lo que verdaderamente importa.',
+            img: 'assets/images/chapters/capitulo-05.jpg',
+            file: 'chapters/capitulo-05.html'
+        }, {
+            id: 6,
+            title: 'Soltar la necesidad de controlar',
+            desc: 'Conservar tu capacidad de actuar sin intentar dirigirlo todo.',
+            img: 'assets/images/chapters/capitulo-06.jpg',
+            file: 'chapters/capitulo-06.html'
+        }, {
+            id: 7,
+            title: 'Recibir sin culpa',
+            desc: 'Abrirte al apoyo y al reconocimiento sin sentir que debes justificarlo todo.',
+            img: 'assets/images/chapters/capitulo-07.jpg',
+            file: 'chapters/capitulo-07.html'
+        }, {
+            id: 8,
+            title: 'Perdonarte y comenzar nuevamente',
+            desc: 'Transformar el error en responsabilidad, aprendizaje y una nueva manera de actuar.',
+            img: 'assets/images/chapters/capitulo-08.jpg',
+            file: 'chapters/capitulo-08.html'
+        }, {
+            id: 9,
+            title: 'Reconocer las señales con discernimiento',
+            desc: 'Escuchar tu intuición sin renunciar a la realidad y la evidencia.',
+            img: 'assets/images/chapters/capitulo-09.jpg',
+            file: 'chapters/capitulo-09.html'
+        }, {
+            id: 10,
+            title: 'Convertir la intención en movimiento',
+            desc: 'Dar un primer paso consciente hacia la vida que deseas construir.',
+            img: 'assets/images/chapters/capitulo-10.jpg',
+            file: 'chapters/capitulo-10.html'
+        }];
+
+        // ---- ESTADO DE PROGRESO (localStorage) ----
+        function getProgress() {
+            try {
+                const data = localStorage.getItem('miYoInterior_progress');
+                return data ? JSON.parse(data) : {};
+            } catch {
+                return {};
+            }
+        }
+
+        function setProgress(id) {
+            const progress = getProgress();
+            progress[id] = true;
+            localStorage.setItem('miYoInterior_progress', JSON.stringify(progress));
+        }
+
+        function isCompleted(id) {
+            const progress = getProgress();
+            return !!progress[id];
+        }
+
+        // ---- DESBLOQUEO PROGRESIVO ----
+        function isUnlocked(id) {
+            if (id === 1) return true;
+            return isCompleted(id - 1);
+        }
+
+        // ---- RENDERIZAR CAPÍTULOS ----
+        const grid = document.getElementById('chapterGrid');
+
+        chapters.forEach(ch => {
+            const done = isCompleted(ch.id);
+            const unlocked = isUnlocked(ch.id);
+            const isLocked = !unlocked && !done;
+
+            const card = document.createElement('div');
+            card.className = 'chapter-card' + (isLocked ? ' locked' : '');
+
+            let statusText = '⏳ Pendiente';
+            let statusClass = 'status';
+
+            if (done) {
+                statusText = '✔️ Completado';
+                statusClass = 'status done';
+            } else if (isLocked) {
+                statusText = '🔒 Bloqueado';
+                statusClass = 'status locked-status';
+            }
+
+            const btnText = done ? 'Continuar' : (isLocked ? 'Completa el capítulo anterior' : 'Iniciar experiencia');
+            const btnClass = done ? 'btn-chapter continue' : (isLocked ? 'btn-chapter' : 'btn-chapter');
+            const linkHref = isLocked ? '#' : ch.file;
+
+            // Imagen o placeholder
+            const imgHtml = ch.img ?
+                `<img src="${ch.img}" alt="${ch.title}" />` :
+                `<span class="placeholder">✦</span>`;
+
+            card.innerHTML = `
+                <div class="chapter-image">
+                    ${imgHtml}
+                </div>
+                <div class="top">
+                    <span class="num">Capítulo ${ch.id}</span>
+                    <span class="${statusClass}">${statusText}</span>
+                </div>
+                <h3>${ch.title}</h3>
+                <p class="desc">${ch.desc}</p>
+                <a href="${linkHref}" class="${btnClass}" data-chapter="${ch.id}" data-locked="${isLocked}">
+                    ${isLocked ? '🔒 ' : ''}${btnText}
+                </a>
+            `;
+
+            grid.appendChild(card);
+        });
+
+        // ---- AL HACER CLIC EN UN CAPÍTULO ----
+        document.querySelectorAll('.btn-chapter').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const isLocked = this.dataset.locked === 'true';
+                if (isLocked) {
+                    e.preventDefault();
+                    alert('Completa el capítulo anterior para desbloquear este.');
+                    return;
+                }
+
+                const chapterId = this.dataset.chapter;
+                localStorage.setItem('miYoInterior_current_chapter', chapterId);
+            });
+        });
+
+        // ---- AL VOLVER DE UN CAPÍTULO ----
+        const urlParams = new URLSearchParams(window.location.search);
+        const doneChapter = urlParams.get('done');
+        if (doneChapter) {
+            setProgress(parseInt(doneChapter, 10));
+            window.history.replaceState({}, document.title, window.location.pathname);
+            location.reload();
+        }
+
+        // ---- MARCADO AUTOMÁTICO AL VOLVER ----
+        const currentChapter = localStorage.getItem('miYoInterior_current_chapter');
+        if (currentChapter) {
+            const id = parseInt(currentChapter, 10);
+            if (!isCompleted(id)) {
+                setProgress(id);
+            }
+            localStorage.removeItem('miYoInterior_current_chapter');
+            location.reload();
+        }
+    </script>
+
+</body>
+</html>
